@@ -1,7 +1,14 @@
+import javax.swing.*;
+
 public class MyApp {
 
     MyApp() {
         System.out.println("I am a constructor");
+    }
+
+    // feature bla
+    private void setMeUp(JFrame frame) {
+        frame.setVisible(true);
     }
 
 
