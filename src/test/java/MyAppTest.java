@@ -3,7 +3,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MyAppTest {
 
     @Test
-    public void MyAppDumbTest() {
+    public void FirstAppDumbTest() {
         assertEquals(1, 1);
+    }
+
+    @Test
+    public void SecondAppDumbTest() {
+        assertEquals(1, 0);
     }
 }
