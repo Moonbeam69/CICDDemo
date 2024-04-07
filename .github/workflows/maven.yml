@@ -17,8 +17,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows
-
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 19
