@@ -12,7 +12,7 @@ public class PlaywrightTest {
     public void runthistest() {
         try (Playwright playwright = Playwright.create()) {
             BrowserType browserType = playwright.chromium();
-            Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(false));
+            Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true));
             BrowserContext context = browser.newContext();
 
             Page page = context.newPage();
