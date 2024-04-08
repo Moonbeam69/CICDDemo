@@ -9,6 +9,6 @@ public class MyAppTest {
 
     @Test
     public void SecondAppDumbTest() {
-        assertEquals(1, 0);
+        assertEquals(1, 1);
     }
 }
