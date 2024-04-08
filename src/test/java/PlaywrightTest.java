@@ -1,7 +1,6 @@
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
 
-import java.io.*;
 import java.util.regex.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
@@ -25,9 +24,9 @@ public class PlaywrightTest {
             page.locator("//html/body/div/div[2]/header/div/div/a").click();
             assertThat(page).hasTitle("Installation | Playwright");
 
-            System.in.read();
+            //System.in.read();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
