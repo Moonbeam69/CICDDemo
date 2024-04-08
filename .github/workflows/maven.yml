@@ -8,6 +8,9 @@
 
 name: Erics CI with Maven
 
+env:
+  ACTIONS_STEP_DEBUG: true
+  
 on:
   push:
     branches: [ "master" ]
