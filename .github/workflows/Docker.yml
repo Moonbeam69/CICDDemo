@@ -23,7 +23,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -DskipTests
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag Moonbeam69/default:$(date +%s)
+        run: docker build . --file Dockerfile --tag Moonbeam69/default
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
