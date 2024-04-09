@@ -16,4 +16,8 @@ public class MyAppTest {
     public void ThirdAppDumbTest() {
         assertEquals(1, 1);
     }
+
+    public void FourthAppDumbTest() {
+        assertEquals(1, 1);
+    }
 }
