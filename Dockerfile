@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Build the application
-RUN javac MyApp.java
+RUN javac app/MyApp.java
 
 # Run the application
 CMD ["java", "MyApp"]
