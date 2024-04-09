@@ -1,0 +1,30 @@
+-------------------------------------------------------------------------------
+Test set: Playwright_tc1
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 14.254 s <<< FAILURE! - in Playwright_tc1
+Playwright_tc1.runthistest  Time elapsed: 14.251 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+Page title expected to be: Installation | Playwright_tc1
+Received: Installation | Playwright
+
+Call log:
+Locator.expect with timeout 5000ms
+waiting for locator(":root")
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Fast and reliable end-to-end testing for modern web apps | Playwright"
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Fast and reliable end-to-end testing for modern web apps | Playwright"
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Installation | Playwright"
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Installation | Playwright"
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Installation | Playwright"
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Installation | Playwright"
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Installation | Playwright"
+  locator resolved to <html lang="en" dir="ltr" data-theme="light" data-has-…>…</html>
+  unexpected value "Installation | Playwright"
+	at Playwright_tc1.runthistest(Playwright_tc1.java:35)
+
