@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+RUN dir /s
+
 # Build the application
 RUN javac app/MyApp.java
 
