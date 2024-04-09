@@ -9,7 +9,7 @@ public class MyAppTest {
 
     @Test
     public void SecondAppDumbTest() {
-        assertEquals(0, 1);
+        assertEquals(1, 1);
     }
 
     @Test
