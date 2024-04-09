@@ -11,4 +11,9 @@ public class MyAppTest {
     public void SecondAppDumbTest() {
         assertEquals(0, 1);
     }
+
+    @Test
+    public void ThirdAppDumbTest() {
+        assertEquals(1, 1);
+    }
 }
