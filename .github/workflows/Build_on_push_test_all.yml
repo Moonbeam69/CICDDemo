@@ -58,3 +58,13 @@ jobs:
     steps:
       - name: Test Results
         run: echo "SIT testing result TBC"
+  example_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use a secret
+        run: |
+          echo "Using a secret in a command"
+          command --option ${{ secrets.PASSWORD }}
+        # Use the env context to set the secret as an environment variable for a step
+        env:
+          SECRET_ENV: ${{ secrets.PASSWORD }}
