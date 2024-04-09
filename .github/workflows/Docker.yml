@@ -7,9 +7,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-  start:
-    runs-on: [ self-hosted ]
-    run: echo "hello world"
   build:
     runs-on: [ self-hosted ]
     steps:
