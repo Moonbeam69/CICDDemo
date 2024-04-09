@@ -35,15 +35,26 @@ jobs:
       - name: Build with Maven
         run: mvn -B compile --file pom.xml
 
-  surefiretest:
+  DeployTest_DevTest:
     needs: compile
     runs-on: [ self-hosted ]
+    environment: DevTest
     steps:
       - name: Build with Maven
         run: mvn -B surefire-report:report --file pom.xml
-  test:
-    needs: compile
+
+  DeployTest_DevInt:
+    needs: DeployTest_DevTest
     runs-on: [ self-hosted ]
+    environment: DevInt
     steps:
       - name: Test Results
-        run: echo "Testing successful yo"
+        run: echo "DevInt testing result TBC"
+
+  DeployTest_SIT:
+    needs: DeployTest_DevInt
+    runs-on: [ self-hosted ]
+    environment: SIT
+    steps:
+      - name: Test Results
+        run: echo "SIT testing result TBC"
