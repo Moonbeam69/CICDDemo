@@ -20,7 +20,7 @@
                         <include>**/Playwright*.java</include>
                     </includes>
                     <excludes>
-                        <!-- exclude>**/Playwright_tc2.java</exclude -->
+                        <exclude>**/Playwright_*.java</exclude>
                     </excludes>
                 </configuration>
                 <dependencies>

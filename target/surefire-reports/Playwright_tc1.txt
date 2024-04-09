@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: Playwright_tc1
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 13.005 s <<< FAILURE! - in Playwright_tc1
-Playwright_tc1.runthistest  Time elapsed: 13.004 s  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 13.942 s <<< FAILURE! - in Playwright_tc1
+Playwright_tc1.runthistest  Time elapsed: 13.938 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: 
 Page title expected to be: Installation | Playwright_tc1
 Received: Installation | Playwright

@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: MyAppTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.092 s <<< FAILURE! - in MyAppTest
-MyAppTest.SecondAppDumbTest  Time elapsed: 0.01 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <0> but was: <1>
-	at MyAppTest.SecondAppDumbTest(MyAppTest.java:12)
-
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.08 s - in MyAppTest
