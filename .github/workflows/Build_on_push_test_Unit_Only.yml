@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Erics CI with Maven
+name: Build, unit test only
 
 env:
   ACTIONS_STEP_DEBUG: true
