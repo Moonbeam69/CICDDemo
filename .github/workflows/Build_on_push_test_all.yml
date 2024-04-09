@@ -28,14 +28,21 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
           cache: maven
-  build:
+  compile:
     needs: setup
+    runs-on: [ self-hosted ]
+    steps:
+      - name: Build with Maven
+        run: mvn -B compile --file pom.xml
+
+  surefiretest:
+    needs: compile
     runs-on: [ self-hosted ]
     steps:
       - name: Build with Maven
         run: mvn -B surefire-report:report --file pom.xml
   test:
-    needs: build
+    needs: compile
     runs-on: [ self-hosted ]
     steps:
       - name: Test Results
