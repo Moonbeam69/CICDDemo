@@ -10,7 +10,7 @@ COPY . /app
 RUN dir
 
 # Build the application
-RUN javac app/MyApp.java
+#RUN javac app/target/MyApp.java
 
 # Run the application
-CMD ["java", "MyApp"]
+#CMD ["java", "MyApp"]
