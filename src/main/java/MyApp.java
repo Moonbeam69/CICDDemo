@@ -1,4 +1,4 @@
-package Application;
+package src.main.java;
 
 public class MyApp {
         public static void main(String[] args) {
