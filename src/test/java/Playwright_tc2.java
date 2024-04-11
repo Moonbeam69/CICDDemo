@@ -12,7 +12,7 @@ public class Playwright_tc2 {
 
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.firefox();
-
+// my comment
             Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true));
             BrowserContext context = browser.newContext();
 
