@@ -10,4 +10,4 @@ COPY . /app
 RUN dir
 
 # run the application
-run java -jar app/HelloWorld-v1.0.jar
+CMD ["java","-jar","app/HelloWorld-v1.0-SNAPSHOT.jar"]
