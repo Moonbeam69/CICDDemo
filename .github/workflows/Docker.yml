@@ -10,7 +10,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  deploy&test:
     runs-on: [ self-hosted ]
     steps:
       - uses: actions/checkout@v4
