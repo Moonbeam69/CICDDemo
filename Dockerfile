@@ -9,8 +9,5 @@ COPY . /app
 
 RUN dir
 
-# Build the application
-#RUN javac app/target/MyApp.java
-
-# Run the application
-#CMD ["java", "MyApp"]
+# run the application
+java -jar app/HelloWorld-v1.0.jar
