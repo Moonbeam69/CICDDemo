@@ -5,10 +5,10 @@ import java.util.regex.*;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 @UsePlaywright
-public class Playwright_tc2 {
+class Playwright_tc2 {
 
     @Test
-    public void tc1_FireFox() {
+    void tc1_FireFox() {
 
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.firefox();
@@ -30,7 +30,7 @@ public class Playwright_tc2 {
             // Expect a title "to contain" a substring.
             assertThat(page).hasTitle(Pattern.compile("Playwright"));
             System.out.println(page.title());
-// hello world
+
             page.locator("//html/body/div/div[2]/header/div/div/a").click();
             assertThat(page).hasTitle("Installation | Playwright");
 
@@ -42,7 +42,7 @@ public class Playwright_tc2 {
     }
 
     @Test
-    public void tc1_Chrome() {
+    void tc1_Chrome() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
@@ -75,7 +75,7 @@ public class Playwright_tc2 {
     }
 
     @Test
-    public void tc1_Chrome2() {
+    void tc1_Chrome2() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
@@ -108,7 +108,7 @@ public class Playwright_tc2 {
     }
 
     @Test
-    public void tc1_Chrome3() {
+    void tc1_Chrome3() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 

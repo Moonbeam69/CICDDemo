@@ -5,11 +5,11 @@ import java.util.regex.*;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 @UsePlaywright
-public class Playwright_tc1 {
+class Playwright_tc1 {
 
     @Test
 
-    public void tc1_FireFox() {
+    void tc1_FireFox() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.firefox();
 
@@ -42,7 +42,7 @@ public class Playwright_tc1 {
     }
 
     @Test
-    public void tc1_Chrome() {
+    void tc1_Chrome() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
@@ -75,7 +75,7 @@ public class Playwright_tc1 {
     }
 
     @Test
-    public void tc1_Chrome2() {
+    void tc1_Chrome2() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
@@ -108,7 +108,7 @@ public class Playwright_tc1 {
     }
 
     @Test
-    public void tc1_Chrome3() {
+    void tc1_Chrome3() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
