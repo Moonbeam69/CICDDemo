@@ -1,7 +1,9 @@
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.*;
 import org.junit.jupiter.api.*;
+
 import java.util.regex.*;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 @UsePlaywright
@@ -12,6 +14,7 @@ class Playwright_tc1 {
     void tc1_FireFox() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.firefox();
+            System.out.println("Hello world");
 
             Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true));
             BrowserContext context = browser.newContext();
