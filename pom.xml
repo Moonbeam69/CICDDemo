@@ -38,8 +38,8 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
-                            <Main-Class>src.main.java.MyApp</Main-Class>
+                            <!-- addClasspath>true</addClasspath-->
+                            <Main-Class>MyApp</Main-Class>
                         </manifest>
                         <manifestEntries>
                             <Created-By>EdB</Created-By>
