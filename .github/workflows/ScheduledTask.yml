@@ -11,7 +11,7 @@ name: Scheduled task
 
 on:
   schedule:
-    - cron: '0/5 * * * *'
+    - cron: '0/30 * * * *'
 
 jobs:
   echo:
