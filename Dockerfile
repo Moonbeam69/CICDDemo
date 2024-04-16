@@ -8,7 +8,7 @@ WORKDIR /app
 RUN dir
 
 # Copy the current directory contents into the container at /app
-COPY /target/HelloWorld-v1.0-SNAPSHOT.jar /app
+COPY HelloWorld-v1.0-SNAPSHOT.jar /app
 
 
 
