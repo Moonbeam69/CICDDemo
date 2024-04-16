@@ -9,7 +9,7 @@
 name: Build, unit test only
 
 env:
-  ACTIONS_STEP_DEBUG: true
+  ACTIONS_STEP_DEBUG: FALSE
   
 on:
   push:
