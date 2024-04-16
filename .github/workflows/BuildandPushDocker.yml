@@ -33,8 +33,7 @@ jobs:
       runs-on: [self-hosted]
       steps:
       - name: Build Docker image
-        run:
-          docker build . --file Dockerfile --tag Moonbeam69/helloworld
+        run: docker build . --file Dockerfile --tag Moonbeam69/helloworld
         working-directory: "C:\Data\actions-runner - hello world\_work\HelloWorld\HelloWorld"
 
       - name: Log in to Docker Hub
