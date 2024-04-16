@@ -26,7 +26,7 @@ jobs:
     runs-on: [self-hosted]
     steps:
       - name: Build with Maven
-        run: mvn -B package --file pom-fast.xml
+        run: mvn -B package --file pom.xml
 
   docker:
       needs: build
@@ -39,5 +39,4 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Push Docker image to Docker Hub
-        run: docker push Moonbeam69/helloworld
+

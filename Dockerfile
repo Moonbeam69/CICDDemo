@@ -5,7 +5,7 @@ FROM openjdk:19
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-# COPY ./target/*.jar /app
+COPY ./target/*.jar /app
 
 RUN dir
 
