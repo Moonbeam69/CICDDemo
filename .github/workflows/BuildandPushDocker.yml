@@ -18,9 +18,19 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '19'
-          distribution: 'temurin'
           cache: maven
 
+  build:
+    needs: setup
+    runs-on: [self-hosted]
+    steps:
+      - name: Build with Maven
+        run: mvn -B package --file pom-fast.xml
+
+  docker:
+      needs: build
+      runs-on: [self-hosted]
+      steps:
       - name: Build Docker image
         run: docker build . --file Dockerfile --tag Moonbeam69/helloworld
       - name: Log in to Docker Hub
