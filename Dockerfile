@@ -8,7 +8,7 @@ WORKDIR /app
 COPY "/target/HelloWorld-v1.0-SNAPSHOT.jar" /app
 
 # ensure correct file permissions
-RUN chmod +r /app/HelloWorld-v1.0-SNAPSHOT.jar
+RUN dir
 
 # run the application
 CMD ["java","-jar","/app/HelloWorld-v1.0-SNAPSHOT.jar"]
