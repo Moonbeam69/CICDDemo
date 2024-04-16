@@ -7,5 +7,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY "target/*.jar" /app
 
+# ensure correct file permissions
+RUN chmod +r /app/HelloWorld-v1.0-SNAPSHOT.jar
+
 # run the application
-CMD ["java","-jar","app/HelloWorld-v1.0-SNAPSHOT.jar"]
+CMD ["java","-jar","/app/HelloWorld-v1.0-SNAPSHOT.jar"]
