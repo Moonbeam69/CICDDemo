@@ -33,7 +33,9 @@ jobs:
       runs-on: [self-hosted]
       steps:
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag Moonbeam69/helloworld
+        run:
+          cd "C:\Data\actions-runner - hello world\_work\HelloWorld\HelloWorld"
+          docker build . --file Dockerfile --tag Moonbeam69/helloworld
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
