@@ -1,10 +1,26 @@
 # CICD Project
 
-Description
+## Description
 
-This project was developed to showcase the basics of Github actions, Junit, PLaywright and Docker.
+This project was developed to showcase the basics of Github Actions, (self-hosted) Runners, Junit test cases, Playwright test cases and Docker.
 
-Basic steps are:
+### Setup
+Intellij IDE, SDK 19
+Personal Github account
 
-1. After Push or PullRequest, Build_ibpoush)test_Unit_only
-2. TBC
+
+### Basic steps
+
+1. After a Push or Pull Request into master: BuildandPushDocker.yml is executed by GitHub Actions
+2. BuildandPushDocker performs the following 3 steps:
+   1. Setup: JDK 19 (temurin distribution) is deployed to the runner
+   2. Build: Maven builds the project into a JAR 
+   3. Docker: Docker creates a new (local) Docker image from the project Dockerfile, copies and executes the project Jar
+   
+### Things to invest time in
+
+1. To deploy the JAR into a test environment, will require the test cases to be packaged and deployed also. For the JAR
+to becom deployable to higher test enviroments, it should not contain test classes. According to Maven
+(https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html), that requires a seperate project which I 
+will invest in later. 
+2. Capabilities of free runners provided by Github
