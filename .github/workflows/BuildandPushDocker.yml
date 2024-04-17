@@ -33,7 +33,7 @@ jobs:
       runs-on: [self-hosted]
       steps:
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag CICD_Project_Image:1.0
+        run: docker build . --file Dockerfile --tag cicd_project_image:1.0
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
