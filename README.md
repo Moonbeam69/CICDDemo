@@ -1,4 +1,4 @@
-# CICD Demo Project
+# CICD Demo Project.
 
 ## Description
 
