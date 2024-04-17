@@ -33,7 +33,7 @@ jobs:
     runs-on: [self-hosted]
     steps:
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file pom-fast.xml
   test:
     needs: build
     runs-on: [self-hosted]
