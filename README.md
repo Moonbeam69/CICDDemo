@@ -1,13 +1,14 @@
-# CICD Project
+# CICD Demo Project
 
 ## Description
 
-This project was developed to showcase the basics of Github Actions, (self-hosted) Runners, Junit test cases, Playwright test cases and Docker.
+I built this project to experience the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Junit test cases, Playwright test cases and Docker.
 
 ### Setup
-Intellij IDE, SDK 19
+Windows 10
+Intellij 2024.1 CE, SDK 19
 Personal Github account
-
+DockerDesktop 4.29
 
 ### Basic steps
 
