@@ -19,8 +19,10 @@ Personal Github account
    
 ### Things to invest time in
 
-1. To deploy the JAR into a test environment, will require the test cases to be packaged and deployed also. For the JAR
+I still want to be able to do the following
+
+1. Deploy the JAR into a test environment, will require the test cases to be packaged and deployed also. For the JAR
 to becom deployable to higher test enviroments, it should not contain test classes. According to Maven
 (https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html), that requires a seperate project which I 
 will invest in later. 
-2. Capabilities of free runners provided by Github
+2. Explore the use of the free runners provided by GitHub, e.g. ubuntu9 (?)
