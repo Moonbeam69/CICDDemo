@@ -1,4 +1,4 @@
-# CICD Demo Project
+# CICD Demo Project.
 
 ## Description
 
@@ -27,6 +27,3 @@ to becom deployable to higher test enviroments, it should not contain test class
 (https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html), that requires a seperate project which I 
 will invest in later. 
 2. Explore the use of the free runners provided by GitHub, e.g. ubuntu9 (?)
-3. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
-
-   Dev -> DevVer -> DevInt -> SIT/UAT -> Production
