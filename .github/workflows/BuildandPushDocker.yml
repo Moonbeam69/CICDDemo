@@ -11,7 +11,7 @@ on:
 
 jobs:
   setup:
-    runs-on: [self-hosted]
+    runs-on: [windows-latest]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
@@ -23,14 +23,14 @@ jobs:
 
   build:
     needs: setup
-    runs-on: [self-hosted]
+    runs-on: [windows-latest]
     steps:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
   docker:
       needs: build
-      runs-on: [self-hosted]
+      runs-on: [windows-latest]
       steps:
       - name: Build Docker image
         run: docker build . --file Dockerfile --tag cicd_project_image:1.0
