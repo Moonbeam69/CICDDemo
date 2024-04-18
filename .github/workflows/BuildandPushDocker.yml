@@ -20,13 +20,14 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
           cache: maven
-
-  build:
-    needs: setup
-    runs-on: [windows-latest]
-    steps:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+#  build:
+#    needs: setup
+#    runs-on: [windows-latest]
+#    steps:
+#      - name: Build with Maven
+#        run: mvn -B package --file pom.xml
 
   docker:
       needs: build
