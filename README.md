@@ -29,6 +29,6 @@ will invest in later.
 2. Explore the use of the free runners provided by GitHub, e.g. ubuntu9 (?)
 3. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
 
-   Dev -> DevVer -> DevInt -> SIT/UAT -> Production
+   Dev -> DevVer -> DevInt -> SIT/UAT -> Production 
 
 4. Deploy to Docker images built on different operating systems
