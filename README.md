@@ -20,13 +20,15 @@ DockerDesktop 4.29
    
 ### Things to invest time in
 
-I still want to be able to do the following
+I still want to investigate the following:
 
-1. Deploy the JAR into a test environment, will require the test cases to be packaged and deployed also. For the JAR
-to becom deployable to higher test enviroments, it should not contain test classes. According to Maven
-(https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html), that requires a seperate project which I 
+1. A JAR deployment for CICD will require the test cases to be packaged and deployed also. If the JAR itself is a managed item that can, in theory, 
+be deployed to production, it should not contain any test classes. According to Maven
+(https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html), that requires a seperate project and a seperate jar for just the test classes which I 
 will invest in later. 
 2. Explore the use of the free runners provided by GitHub, e.g. ubuntu9 (?)
 3. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
 
    Dev -> DevVer -> DevInt -> SIT/UAT -> Production
+
+4. Deploy to Docker images built on different operating systems
