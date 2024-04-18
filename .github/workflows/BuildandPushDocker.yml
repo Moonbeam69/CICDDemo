@@ -30,7 +30,7 @@ jobs:
 #        run: mvn -B package --file pom.xml
 
   docker:
-      needs: build
+      needs: setup
       runs-on: [windows-latest]
       steps:
       - name: Build Docker image
