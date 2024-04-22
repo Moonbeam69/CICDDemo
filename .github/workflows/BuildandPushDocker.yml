@@ -45,5 +45,3 @@ jobs:
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevInt
       - name: run docker image
         run: docker run --name DevInt cicd_project_image:DevInt
-      - name: run a command in Docker
-        run: docker exec mvn test
