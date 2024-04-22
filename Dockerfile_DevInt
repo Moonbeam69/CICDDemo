@@ -8,4 +8,4 @@ WORKDIR /DevInt
 COPY target/CICD_Project-v1.0.jar /DevInt/
 
 # run the application
-CMD ["java","-jar","/DevInt/CICD_Project-v1.0.jar"]
+CMD ["java", "-Denvironment=DevInt", "-jar","/DevInt/CICD_Project-v1.0.jar"]
