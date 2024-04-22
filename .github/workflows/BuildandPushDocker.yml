@@ -26,7 +26,7 @@ jobs:
       - name: Build Docker image
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevVer
       - name: run docker image
-        run: docker run cicd_project_image:DevVer --name DevVer
+        run: docker run --name DevVer cicd_project_image:DevVer
 
   DevInt:
     runs-on: [self-hosted]
@@ -44,6 +44,6 @@ jobs:
       - name: Build Docker image
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevInt
       - name: run docker image
-        run: docker run cicd_project_image:DevInt --name DevInt
+        run: docker run --name DevInt cicd_project_image:DevInt
       - name: run a command in Docker
         run: docker exec mvn test
