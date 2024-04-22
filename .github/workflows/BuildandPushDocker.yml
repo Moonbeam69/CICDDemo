@@ -25,6 +25,8 @@ jobs:
         run: mvn -B package --file pom.xml -Denvironment=DevVer
       - name: Build Docker image
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevVer
+      - name: run docker image
+        run: docker run tag cicd_project_image:DevVer
 
   DevInt:
     runs-on: [self-hosted]
@@ -41,4 +43,5 @@ jobs:
         run: mvn -B package --file pom.xml -Denvironment=DevInt
       - name: Build Docker image
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevInt
-
+      - name: run docker image
+        run: docker run tag cicd_project_image:DevInt
