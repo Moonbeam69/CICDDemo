@@ -10,8 +10,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build_test_and_deploy:
-    runs-on: [windows-latest]
+  DevVer:
+    runs-on: [self-hosted]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
@@ -20,14 +20,23 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+      - name: Build DevVer with Maven
+        run: mvn -B package --file pom.xml -Denvironment=DevVer
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag cicd_project_image:1.0
+        run: docker build . --file Dockerfile --tag cicd_project_image:DevVer
 
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@v1
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
+  DevInt:
+    runs-on: [self-hosted]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 19
+        uses: actions/setup-java@v4
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build DevVer with Maven
+        run: mvn -B package --file pom.xml -Denvironment=DevInt
+      - name: Build Docker image
+        run: docker build . --file Dockerfile --tag cicd_project_image:DevInt
 
