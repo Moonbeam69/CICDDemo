@@ -28,6 +28,7 @@ jobs:
 
   DevInt:
     runs-on: [self-hosted]
+    needs: DevVer
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
