@@ -9,7 +9,7 @@ Windows 10
 Intellij 2024.1 CE, SDK 19
 Personal Github account
 DockerDesktop 4.29
-
+ 
 ### Basic steps
 
 1. After a Push or Pull Request into master: BuildandPushDocker.yml is executed by GitHub Actions
