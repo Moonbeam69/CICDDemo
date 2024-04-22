@@ -26,7 +26,7 @@ jobs:
       - name: Build Docker image
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevVer
       - name: run docker image
-        run: docker run tag cicd_project_image:DevVer
+        run: docker run cicd_project_image:DevVer
 
   DevInt:
     runs-on: [self-hosted]
@@ -44,4 +44,4 @@ jobs:
       - name: Build Docker image
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevInt
       - name: run docker image
-        run: docker run tag cicd_project_image:DevInt
+        run: docker run cicd_project_image:DevInt
