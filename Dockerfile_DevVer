@@ -7,5 +7,24 @@ WORKDIR /DevVer
 # Copy the current directory contents into the container at /app
 COPY target/CICD_Project-v1.0.jar /DevVer/
 
+# Set environment variables for Maven version and installation path
+#ENV MAVEN_VERSION 3.8.4
+#ENV MAVEN_HOME /usr/share/maven
+
+# Install Maven
+#RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
+#  && curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+#  | tar -xzC /usr/share/maven --strip-components=1 \
+#  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
+
+# Optional Build stage
+FROM maven:3.6.3-jdk-11 as builder
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src src
+RUN mvn package
+RUN ls ./target/
+
 # run the application
 CMD ["java", "-Denvironment=DevVer", "-jar","/DevVer/CICD_Project-v1.0.jar"]
