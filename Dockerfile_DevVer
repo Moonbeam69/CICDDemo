@@ -1,5 +1,5 @@
 # Use an official Java runtime as a parent image
-FROM openjdk:19
+FROM openjdk:19-slim
 
 # Set the working directory in the container
 WORKDIR /DevVer
@@ -18,7 +18,7 @@ COPY target/CICD_Project-v1.0.jar /DevVer/
 #  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
 
 # Optional Build stage
-FROM maven:3.6.3-jdk-11 as builder
+FROM maven:3.9.6-jdk-19 as builder
 WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
