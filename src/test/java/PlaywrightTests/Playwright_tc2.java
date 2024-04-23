@@ -10,7 +10,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 class Playwright_tc2 {
 
     @Test
-    void tc1_FireFox() {
+    void tc2_FireFox() {
 
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.firefox();
@@ -43,7 +43,7 @@ class Playwright_tc2 {
     }
 
     @Test
-    void tc1_Chrome() {
+    void tc2_Chrome() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
@@ -75,7 +75,7 @@ class Playwright_tc2 {
     }
 
     @Test
-    void tc1_Chrome2() {
+    void tc2_Chrome2() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
@@ -107,7 +107,7 @@ class Playwright_tc2 {
     }
 
     @Test
-    void tc1_Chrome3() {
+    void tc2_Chrome3() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
 
