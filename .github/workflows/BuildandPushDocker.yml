@@ -41,8 +41,10 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
           cache: maven
-      - name: Build DevVer with Maven
+      - name: Build DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=DevInt
+      - name: remove remove previous container instance
+        run: docker rm -f DevInt
       - name: Build Docker image
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevInt
       - name: run docker image
