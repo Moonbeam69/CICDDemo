@@ -23,12 +23,28 @@ DockerDesktop 4.29
 I still want to investigate the following:
 
 1. A JAR deployment for CICD will require the test cases to be packaged and deployed also. If the JAR itself is a managed item that can, in theory, 
-be deployed to production, it should not contain any test classes. According to Maven
-(https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html), that requires a seperate project and a seperate jar for just the test classes which I 
-will invest in later. 
-2. Explore the use of the free runners provided by GitHub, e.g. ubuntu9 (?)
-3. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
+be promoted to production, it should not contain any test classes. It is possible to build a jar with the SUT classes and a separate JAR with test classes:
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+but to execute the test Jar on the target envirnment (e.g. Docker) will require separate dependency management. The answer is probably to to install 
+Maven on the target environment and let pom.xml do the heavy lifting.
+
+3. Explore the use of the free runners provided by GitHub, e.g. linux-latest, windows-latest etc.
+
+4. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
 
    Dev -> DevVer -> DevInt -> SIT/UAT -> Production 
 
-4. Deploy to Docker images built on different operating systems
+5. Deploy to Docker images built on different operating systems
