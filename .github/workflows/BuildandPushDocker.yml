@@ -29,11 +29,11 @@ jobs:
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevVer
       - name: run docker image
         run: docker run --name DevVer cicd_project_image:DevVer
-      - name: Upload entire directory
+      - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
-          name: target files
-          path: target
+          name: test results
+          path: target/surefire-reports
 
   DevInt:
     runs-on: [self-hosted]
