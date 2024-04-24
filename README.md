@@ -59,4 +59,4 @@ Note: Building and testing on a runner is different from building and runninn on
 
    The default Docker builder is linux-based. I have not yet found out how to build a Docker image based on Windows. 
 
-6. Exoplore GitHub MarketPlace for more interesting actions
+6. Explore GitHub MarketPlace for more interesting actions
