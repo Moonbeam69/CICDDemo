@@ -38,13 +38,25 @@ be promoted to production, it should not contain any test classes. It is possibl
                 </executions>
             </plugin>
 
-but to execute the test Jar on the target envirnment (e.g. Docker) will require separate dependency management. The answer is probably to to install 
-Maven on the target environment and let pom.xml do the heavy lifting.
+Note: Building and testing on a runner is different from building and runninn on a dedicated Cloud environment. In a microservices architecture: 
+1) Build jar and test jar on a runner (mvn package -no test)  
+2) Deploy jar to target environment 
+3) Run test classes from the runner
+4) Rebuild test jar on a runner and point test classes at target environment
 
-3. Explore the use of the free runners provided by GitHub, e.g. linux-latest, windows-latest etc.
+2. Explore the use of the free runners provided by GitHub, e.g. linux-latest, windows-latest etc.
 
-4. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
+   Findings: Easy enough with "linux-latest" and/or "windows-latest" but no control with personal GitHub account over spec of these build servers. Nor their availability:
+   Have found that workflow jobs can be queued and will not execute immediately.
 
-   Dev -> DevVer -> DevInt -> SIT/UAT -> Production 
+3. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
 
-5. Deploy to Docker images built on different operating systems
+   Dev -> DevVer -> DevInt -> SIT/UAT -> Production
+
+   This can be managed through tasks in a workflow file.
+
+4. Deploy to Docker images built on different operating systems
+
+   The default Docker builder is linux-based. I have not yet found out how to build a Docker image based on Windows. 
+
+6. Exoplore GitHub MarketPlace for more interesting actions
