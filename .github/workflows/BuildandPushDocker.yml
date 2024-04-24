@@ -36,7 +36,7 @@ jobs:
           path: temp
 
   DevInt:
-    runs-on: [linux-latest]
+    runs-on: [self-hosted]
     needs: DevVer
     steps:
       - uses: actions/checkout@v4
