@@ -31,7 +31,7 @@ jobs:
         run: docker run --name DevVer cicd_project_image:DevVer
 
   DevInt:
-    runs-on: [self-hosted]
+    runs-on: [linux-latest]
     needs: DevVer
     steps:
       - uses: actions/checkout@v4
