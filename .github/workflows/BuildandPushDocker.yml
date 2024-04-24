@@ -32,8 +32,8 @@ jobs:
       - name: Upload entire directory
         uses: actions/upload-artifact@v3
         with:
-          name: target
-          path: temp
+          name: target files
+          path: target
 
   DevInt:
     runs-on: [self-hosted]
