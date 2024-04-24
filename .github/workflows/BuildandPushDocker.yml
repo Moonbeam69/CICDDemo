@@ -49,6 +49,11 @@ jobs:
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevInt
       - name: run docker image
         run: docker run --name DevInt cicd_project_image:DevInt
+      - name: Publish Unit Test Results (PR)
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: target/surefire-reports/*.xml
 
   Production:
     runs-on: [self-hosted]
