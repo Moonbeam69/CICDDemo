@@ -29,6 +29,11 @@ jobs:
         run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevVer
       - name: run docker image
         run: docker run --name DevVer cicd_project_image:DevVer
+      - name: Upload entire directory
+        uses: actions/upload-artifact@v3
+        with:
+          name: target/surefire-reports
+          path: temp
 
   DevInt:
     runs-on: [linux-latest]
