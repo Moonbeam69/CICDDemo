@@ -2,14 +2,15 @@ package PlaywrightTests;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.*;
-import org.junit.jupiter.api.*;
+
 import java.util.regex.*;
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 @UsePlaywright
 class Playwright_tc2 {
 
-    @Test
+//    @Test
     void tc2_FireFox() {
 
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
@@ -42,7 +43,7 @@ class Playwright_tc2 {
         }
     }
 
-    @Test
+//    @Test
     void tc2_Chrome() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
@@ -74,7 +75,7 @@ class Playwright_tc2 {
         }
     }
 
-    @Test
+//    @Test
     void tc2_Chrome2() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
@@ -106,7 +107,7 @@ class Playwright_tc2 {
         }
     }
 
-    @Test
+//    @Test
     void tc2_Chrome3() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();

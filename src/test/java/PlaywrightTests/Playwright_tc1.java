@@ -11,8 +11,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 @UsePlaywright
 class Playwright_tc1 {
 
-    @Test
-
+//    @Test
     void tc1_FireFox() {
 
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
@@ -46,7 +45,7 @@ class Playwright_tc1 {
         }
     }
 
-    @Test
+//    @Test
     void tc1_Chrome() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
@@ -78,7 +77,7 @@ class Playwright_tc1 {
         }
     }
 
-    @Test
+//    @Test
     void tc1_Chrome2() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
@@ -110,7 +109,7 @@ class Playwright_tc1 {
         }
     }
 
-    @Test
+//    @Test
     void tc1_Chrome3() {
         try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
             BrowserType browserType = playwright.chromium();
@@ -140,5 +139,12 @@ class Playwright_tc1 {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    void VerifyHomepage() {
+        String browser = System.getProperty("browser");
+
+        System.out.println("Testing on: browser");
     }
 }

@@ -38,6 +38,9 @@ jobs:
   DevInt:
     runs-on: [self-hosted]
     needs: DevVer
+    strategy:
+      matrix:
+        browser: [ chrome, firefox, safari ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
@@ -47,7 +50,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build DevInt with Maven
-        run: mvn -B package --file pom.xml -Denvironment=DevInt
+        run: mvn -B package --file pom.xml -Denvironment=DevInt -Dbrowser=${{ matrix.browser }}
       - name: remove remove previous container instance
         run: docker rm -f DevInt
       - name: Build Docker image
