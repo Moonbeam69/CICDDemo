@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test results (${{ matrix.browser }})
-          path: target/surefire-reports/${{ matrix.browser }}/
+          path: target/surefire-reports/
 
   DevInt:
     runs-on: [self-hosted]
@@ -54,7 +54,7 @@ jobs:
           cache: maven
       - name: Build & test DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=DevInt -Dbrowser=${{ matrix.browser }}
-      - name: Upload test results
+      - name: Upload test results - ${{ matrix.browser }}
         uses: actions/upload-artifact@v4
         with:
           name: test results (${{ matrix.browser }})
