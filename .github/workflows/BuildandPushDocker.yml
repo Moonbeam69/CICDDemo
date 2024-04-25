@@ -35,8 +35,8 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test results
-          path: target/surefire-reports
+          name: test results (${{ matrix.browser }})
+          path: target/surefire-reports/${{ matrix.browser }}/
 
   DevInt:
     runs-on: [self-hosted]
@@ -57,8 +57,8 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test results
-          path: target/surefire-reports
+          name: test results (${{ matrix.browser }})
+          path: target/surefire-reports/${{ matrix.browser }}/
 
   Production:
     runs-on: [self-hosted]
