@@ -1,5 +1,3 @@
-package PlaywrightTests;
-
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.*;
 import org.junit.jupiter.api.*;
@@ -10,7 +8,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @UsePlaywright
-class Playwright_tc1 {
+class Playwright1Test {
 
     static BrowserType browserType;
 
@@ -21,7 +19,7 @@ class Playwright_tc1 {
 
         switch (browser) {
             case "chrome":
-                BrowserType browserType = playwright.chromium();
+                browserType = playwright.chromium();
                 break;
             case "firefox":
                 assertTrue(1==1);
@@ -129,7 +127,7 @@ class Playwright_tc1 {
         }
     }
 
-//    @Test
+    @Test
     void tc1_Chrome3() {
         //com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create();
         //    BrowserType browserType = playwright.chromium();

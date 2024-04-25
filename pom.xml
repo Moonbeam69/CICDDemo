@@ -17,7 +17,7 @@
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
-                        <include>**/Playwright*.java</include>
+                        <!--include>**/PlaywrightTests/Playwright*.java</include-->
                     </includes>
                     <!-- excludes>
                         <exclude>**/Playwright_*.java</exclude>
