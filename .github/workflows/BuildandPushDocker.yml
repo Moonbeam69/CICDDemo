@@ -33,7 +33,7 @@ jobs:
       - name: run docker image
         run: docker run --name DevVer cicd_project_image:DevVer
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test results
           path: target/surefire-reports
@@ -55,7 +55,7 @@ jobs:
       - name: Build & test DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=DevInt -Dbrowser=${{ matrix.browser }}
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test results
           path: target/surefire-reports

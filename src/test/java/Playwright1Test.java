@@ -5,7 +5,6 @@ import org.junit.jupiter.api.*;
 import java.util.regex.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @UsePlaywright
 class Playwright1Test {
@@ -22,11 +21,13 @@ class Playwright1Test {
                 browserType = playwright.chromium();
                 break;
             case "firefox":
-                assertTrue(1==1);
+                browserType = playwright.firefox();
                 break;
             case "safari":
-                assertTrue(1==1);
+                browserType = playwright.webkit();
                 break;
+            default:
+                System.out.println("Something went wrong: no browser configured with " + browser);
         }
     }
 //    @Test
