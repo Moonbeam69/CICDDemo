@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test results
-          path: target/surefire-reports
+          path: target/surefire-reports/devver
 
   DevInt:
     runs-on: [self-hosted]
@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test results
-          path: target/surefire-reports
+          path: target/surefire-reports/devint/${{ matrix.browser }}
 
   Production:
     runs-on: [self-hosted]
