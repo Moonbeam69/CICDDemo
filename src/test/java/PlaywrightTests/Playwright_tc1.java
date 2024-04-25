@@ -7,10 +7,30 @@ import org.junit.jupiter.api.*;
 import java.util.regex.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @UsePlaywright
 class Playwright_tc1 {
 
+    static BrowserType browserType;
+
+    @BeforeAll
+    static void setup() {
+        String browser = System.getProperty("browser");
+        com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create();
+
+        switch (browser) {
+            case "chrome":
+                BrowserType browserType = playwright.chromium();
+                break;
+            case "firefox":
+                assertTrue(1==1);
+                break;
+            case "safari":
+                assertTrue(1==1);
+                break;
+        }
+    }
 //    @Test
     void tc1_FireFox() {
 
@@ -111,8 +131,8 @@ class Playwright_tc1 {
 
 //    @Test
     void tc1_Chrome3() {
-        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
-            BrowserType browserType = playwright.chromium();
+        //com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create();
+        //    BrowserType browserType = playwright.chromium();
 
             try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
                 BrowserContext context = browser.newContext();
@@ -136,15 +156,6 @@ class Playwright_tc1 {
                 assertThat(page).hasTitle("Installation | Playwright");
             }
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    @Test
-    void VerifyHomepage() {
-        String browser = System.getProperty("browser");
-
-        System.out.println("Testing on: " + browser);
     }
 }
