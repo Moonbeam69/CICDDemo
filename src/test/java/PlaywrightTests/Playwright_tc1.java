@@ -145,6 +145,6 @@ class Playwright_tc1 {
     void VerifyHomepage() {
         String browser = System.getProperty("browser");
 
-        System.out.println("Testing on: browser");
+        System.out.println("Testing on: " + browser);
     }
 }
