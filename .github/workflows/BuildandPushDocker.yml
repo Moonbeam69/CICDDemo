@@ -35,7 +35,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test results ${{ matrix.browser }}
+          name: test results
           path: target/surefire-reports/
 
   DevInt:
@@ -43,7 +43,7 @@ jobs:
     needs: DevVer
     strategy:
       matrix:
-        browser: [ chrome, firefox, safari ]
+        browser: [chrome,firefox,safari]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
@@ -57,7 +57,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test results ${{ matrix.browser }}
+          name: test results ${{ matrix.browser }} - ${{ github.run_id }}
           path: target/surefire-reports/
 
   Production:
