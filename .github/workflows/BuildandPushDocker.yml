@@ -1,7 +1,7 @@
 name: Build and Push Docker image
 
 env:
-  ACTIONS_STEP_DEBUG: true
+  ACTIONS_STEP_DEBUG: false
 
 on:
   push:
