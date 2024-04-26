@@ -12,7 +12,7 @@ on:
 
 jobs:
   DevVer:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, Windows, X64, 'Hello World']
     strategy:
       matrix:
         browser: [ chrome ]
@@ -35,7 +35,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test results (${{ matrix.browser }})
+          name: test results ${{ matrix.browser }}
           path: target/surefire-reports/
 
   DevInt:
@@ -54,11 +54,11 @@ jobs:
           cache: maven
       - name: Build & test DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=DevInt -Dbrowser=${{ matrix.browser }}
-      - name: Upload test results - ${{ matrix.browser }}
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test results (${{ matrix.browser }})
-          path: target/surefire-reports/${{ matrix.browser }}/
+          name: test results ${{ matrix.browser }}
+          path: target/surefire-reports/
 
   Production:
     runs-on: [self-hosted]
