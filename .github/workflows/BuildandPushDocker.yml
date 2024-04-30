@@ -12,7 +12,7 @@ on:
 
 jobs:
   DevVer:
-    runs-on: [self-hosted, ERICS-OPENSUSE-X64-2]
+    runs-on: [self-hosted, OPENSUSE]
     strategy:
       matrix:
         browser: [ chrome ]
@@ -39,7 +39,7 @@ jobs:
           path: target/surefire-reports/
 
   DevInt:
-    runs-on: [self-hosted, ERICS-OPENSUSE-X64-2]
+    runs-on: [self-hosted, OPENSUSE]
     needs: DevVer
     strategy:
       matrix:
