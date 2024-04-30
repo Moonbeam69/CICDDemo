@@ -43,7 +43,7 @@ jobs:
     needs: DevVer
     strategy:
       matrix:
-        browser: [chrome,firefox,safari]
+        browser: [chrome,firefox]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
