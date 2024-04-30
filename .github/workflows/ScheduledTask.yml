@@ -15,7 +15,7 @@ on:
 
 jobs:
   echo:
-    runs-on: [ self-hosted ]
+    runs-on: [self-hosted, OPENSUSE]
     steps:
       - name: Echo works
         run:
