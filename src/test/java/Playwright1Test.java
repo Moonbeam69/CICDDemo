@@ -27,7 +27,7 @@ class Playwright1Test {
                 browserType = playwright.webkit();
                 break;
             default:
-                System.out.println("Something went wrong: no browser configured with " + browser);
+                System.out.println("No browser configured with " + browser);
         }
     }
 //    @Test
