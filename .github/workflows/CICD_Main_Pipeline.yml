@@ -1,4 +1,4 @@
-name: SIT Build and Test
+name: Bukd & Test in DevVer and SIT
 
 env:
   ACTIONS_STEP_DEBUG: false
@@ -39,8 +39,36 @@ jobs:
           path: target/surefire-reports/
 
   DevInt:
-    runs-on: [self-hosted, OPENSUSE]
+    runs-on: [self-hosted, windows]
     needs: DevVer
+    strategy:
+      matrix:
+        browser: [ chrome ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 19
+        uses: actions/setup-java@v4
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build DevVer with Maven
+        run: mvn -B package --file pom.xml -Denvironment=DevVer -Dbrowser=chrome
+      - name: remove remove previous container instance
+        run: docker rm -f DevVer
+      - name: Build Docker image
+        run: docker build . --file Dockerfile_DevVer --tag cicd_project_image:DevVer
+      - name: run docker image
+        run: docker run --name DevVer cicd_project_image:DevVer
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test results
+          path: target/surefire-reports/
+
+  SIT:
+    runs-on: [self-hosted, OPENSUSE2]
+    needs: DevInt
     strategy:
       matrix:
         browser: [chrome,firefox]
@@ -61,8 +89,8 @@ jobs:
           path: target/surefire-reports/
 
   Production:
-    runs-on: [self-hosted]
-    needs: DevInt
+    runs-on: [self-hosted, OPENSUSE2]
+    needs: SIT
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
