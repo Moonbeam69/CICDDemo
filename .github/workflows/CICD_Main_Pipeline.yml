@@ -87,7 +87,7 @@ jobs:
         run: mvn -B package --file pom.xml -Denvironment=SIT -Dbrowser=${{ matrix.browser }}
 
       - name: Remove remove previous Docker DevInt container instance
-        run: docker rm -f DevInt
+        run: docker rm -f SIT
       - name: Build Docker image
         run: docker build . --file Dockerfile_SIT --tag cicd_project_image:SIT
       - name: run docker image
