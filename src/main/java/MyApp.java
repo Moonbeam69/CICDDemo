@@ -5,7 +5,8 @@ public class MyApp {
     }
     public static void main(String[] args) {
             System.out.println("CICD_Project-v1.0 was run successfully");
-            System.out.println("in: " + System.getProperty("environment"));
+            System.out.println("Eric in: ");
+            System.out.println(System.getProperty("environment") + "foo");
 
         }
 

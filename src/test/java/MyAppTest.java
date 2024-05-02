@@ -9,25 +9,28 @@ public class MyAppTest {
         environment = System.getProperty("environment");
     }
     @Test
-    public void FirstAppDumbTest() {
-        System.out.println(environment + ": ");
+    public void FirstAppDumbTest(TestInfo testInfo) {
+        System.out.println("FirstAppDumbTest in " + environment);
+        // debug: System.out.println("testinfo: " + testInfo.getTestMethod().get().getName());
+
         assertEquals(1, 1);
     }
 
     @Test
     public void SecondAppDumbTest() {
+        System.out.println("SecondAppDumbTest in " + environment);
         assertEquals(1, 1);
-
     }
 
     @Test
     public void ThirdAppDumbTest() {
+        System.out.println("ThirdAppDumbTest in " + environment);
         assertEquals(1, 1);
     }
 
     @Test
     public void FourthAppDumbTest() {
-
+        System.out.println("FourthAppDumbTest in " + environment);
         assertEquals(1, 1);
     }
 }
