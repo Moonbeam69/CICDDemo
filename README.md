@@ -2,7 +2,7 @@
 
 ## Description
 
-I built this project to experience the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Junit test cases, Playwright test cases and Docker.
+I built this project to demonstrate the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Junit test cases, Playwright test cases and Docker.
 
 ### Environment
 - Local env Windows 10
@@ -21,9 +21,7 @@ I built this project to experience the basics principles of CICD pipeline develo
    - Build: Maven builds the project into a JAR, run the tests (in main/test/java) 
    - Docker: Docker creates a new (local) Docker image from the project Dockerfile, copies and executes the mainClass from project Jar (no test execution)
    
-### Things to invest time in
-
-I still want to investigate the following:
+### Backlog
 
 0. Support for test executions on multiple browser and platforms, using in-built browser support (FF & Chr)), others incl Browserstack
 
