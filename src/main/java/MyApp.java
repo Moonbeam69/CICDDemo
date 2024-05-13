@@ -4,15 +4,15 @@ public class MyApp {
     MyApp() {
 
         logger.info("started MyApp");
-        System.out.println("CICD_Project-v1.0 was run successfully");
-        System.out.println("Eric in: ");
-        System.out.println(System.getProperty("environment") + "foo");
+        logger.info("CICD_Project-v1.0 was run successfully");
+        logger.info("Eric in: ");
+        logger.info(System.getProperty("environment") + "foo");
 
         logger.info("existing MyApp");
     }
     public static void main(String[] args) {
 
-        MyApp app = new MyApp();
+        new MyApp();
 
     }
 
