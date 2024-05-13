@@ -31,6 +31,7 @@ class Playwright1Test {
                 logger.info("No browser configured with " + browser);
         }
     }
+
     @Test
     void tc1_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
