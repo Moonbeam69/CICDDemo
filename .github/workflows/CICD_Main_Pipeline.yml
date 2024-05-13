@@ -1,4 +1,4 @@
-name: Bukd & Test in DevVer and SIT
+name: Build & Test in DevVer and SIT
 
 env:
   ACTIONS_STEP_DEBUG: true
