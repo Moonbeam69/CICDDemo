@@ -16,6 +16,7 @@ jobs:
     strategy:
       matrix:
         browser: [ chrome ]
+        profile: [ Localtests ]
     steps:
       - uses: actions/checkout@v4
 
@@ -42,7 +43,7 @@ jobs:
       - name: Start timing
         run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
       - name: Build & Test DevVer with Maven
-        run: mvn -B package --file UTpom.xml -Denvironment=DevVer -Dbrowser=${{ matrix.browser }}
+        run: mvn -B package --file UTpom.xml -Denvironment=DevVer -Dbrowser=${{ matrix.browser }} -P ${{ matrix.profile}}
       - name: End timing
         run: |
           END_TIME=$(date +%s)
