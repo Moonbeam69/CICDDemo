@@ -7,24 +7,20 @@
     <groupId>MyGroup</groupId>
     <artifactId>CICD_Project</artifactId>
     <version>v1.0</version>
+    <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <browserstack-local-java>1.0.6</browserstack-local-java>
+        <httpclient>4.5.13</httpclient>
+        <json-simple>1.1</json-simple>
+        <Local_test_case>**/tests.Playwright1Test.java</Local_test_case>
+        <Browserstack_test_case>**/tests.PlaywrightTest4BrowserStack.java</Browserstack_test_case>
+        <parallel.count>2</parallel.count>
+    </properties>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                        <!--include>**/PlaywrightTests/Playwright*.java</include-->
-                    </includes>
-                    <!-- excludes>
-                        <exclude>**/Playwright_*.java</exclude>
-                    </excludes -->
-
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -91,13 +87,7 @@
         </plugins>
     </reporting>
 
-    <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <dependencies>
+     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -127,5 +117,79 @@
             <artifactId>log4j-core</artifactId>
             <version>2.17.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.browserstack</groupId>
+            <artifactId>browserstack-local-java</artifactId>
+            <version>${browserstack-local-java}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json-simple}</version>
+        </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>Localtests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <includes>
+                                <include>${Local_test_case}</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/tests.MyAppTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+
+            </build>
+
+        </profile>
+        <profile>
+            <id>Browserstack</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <includes>
+                                <include>${Browserstack_test_case}</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/tests.MyAppTest.java</exclude>
+                                <exclude>**/>${Local_test_case}</exclude>
+                            </excludes>
+                            <systemPropertyVariables>
+                                <config>browserstack.conf.json</config>
+                                <local>false</local>
+                            </systemPropertyVariables>
+                            <properties>
+                                <configurationParameters>
+                                    junit.jupiter.execution.parallel.enabled = true
+                                    junit.jupiter.execution.parallel.mode.default = concurrent
+                                    junit.jupiter.execution.parallel.config.strategy=fixed
+                                    junit.jupiter.execution.parallel.config.fixed.parallelism=${parallel.count}
+                                </configurationParameters>
+                            </properties>
+                            <testFailureIgnore>false</testFailureIgnore>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

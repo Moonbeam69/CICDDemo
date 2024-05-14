@@ -1,3 +1,5 @@
+package tests;
+
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.*;
 import org.junit.jupiter.api.*;
@@ -10,7 +12,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 class Playwright1Test {
 
     static BrowserType browserType;
-    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(MyApp.class);
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Playwright1Test.class);
     
     @BeforeAll
     static void setup() {
@@ -29,6 +31,8 @@ class Playwright1Test {
                 break;
             default:
                 logger.info("No browser configured with " + browser);
+
+                // https://github.com/users/Moonbeam69/projects/1/views/1?filterQuery=sprint%3A%40current&pane=issue&itemId=62728371
         }
     }
 

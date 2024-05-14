@@ -60,6 +60,7 @@ jobs:
     strategy:
       matrix:
         browser: [ chrome, firefox ]
+        profile: [ Localtests ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
@@ -69,7 +70,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build & Test DevInt with Maven
-        run: mvn -B package --file pom.xml -Denvironment=DevInt -Dbrowser=${{ matrix.browser }}
+        run: mvn -B package --file pom.xml -Denvironment=DevInt -Dbrowser=${{ matrix.browser }}  -P ${{ matrix.profile}}
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
@@ -81,7 +82,8 @@ jobs:
     needs: DevInt
     strategy:
       matrix:
-        browser: [chrome,firefox]
+        browser: [ chrome,firefox ]
+        profile: [ Browserstack ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 19
@@ -91,7 +93,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build & test SIT with Maven
-        run: mvn -B package --file pom.xml -Denvironment=SIT -Dbrowser=${{ matrix.browser }}
+        run: mvn -B package --file pom.xml -D environment=SIT -D browser=${{ matrix.browser }} -P ${{ matrix.profile}}
 
 #      - name: Remove remove previous Docker DevInt container instance
 #        run: docker rm -f SIT
