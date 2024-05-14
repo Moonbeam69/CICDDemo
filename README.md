@@ -1,33 +1,39 @@
 # CICD Demo Project
 
-
-
 ## Description
 
-I built this project to demonstrate the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Junit test cases, Playwright test cases and Docker.
+I built this project to demonstrate the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integrationb, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
 
 ### Environment
 - Local env Windows 10
 - 3x self-hosted runners: 2x openSUSE Leap 15.5, 1x Windows 10
-- Intellij 2024.1 CE, SDK 19
+- Browserstack trial account
+- IDE Intellij 2024.1 CE, SDK 19
+- OpenJDK 19 "temurin" on runners
 - Personal Github account
 - Playwright 1.42
 - Junit5
 - DockerDesktop 4.29
  
-### CICD Approach
+### CICD Release Strategy
 
-1. After a Push or Pull Request into master: BuildandPushDocker.yml is executed
-2. CICD_Main_Pipeline.yml performs the following 3 steps:
+1. After a Push or Pull Request into master, CICD_Main_Pipeline.yml is executed
+2. CICD_Main_Pipeline.yml performs the following 4 steps:
    - Setup: JDK 19 (OpenJDK 'temurin' distribution) is deployed to the runner (self-hosted)
    - Build: Maven builds the project into a JAR, run the tests (in main/test/java) 
-   - Docker: Docker creates a new (local) Docker image from the project Dockerfile, copies and executes the mainClass from project Jar (no test execution)
+   - Docker: Docker creates a new Docker image from the project Dockerfile, copies and executes the mainClass from project Jar (no test execution)
+   - Pipeline yml to executes with the following test data combos:
    
+      DevVer with profile for self-hosted runner: linux + chrome
+      DevInt with profile for self-hosted runner: linux + chrome + firefox
+      SIT    with profile for Browserstack: Windows10 + chrome
+
 ### Backlog
 
 0. Support for test executions on multiple browser and platforms, using in-built browser support (FF & Chr)), others incl Browserstack
 
-Done. using matrix syntax in workflow yml. Safari is supported if self-hosted host has Safari installed. No Safari  
+Done. using matrix syntax in workflow yml. Safari is supported if self-hosted host has Safari installed. No Safari support on Linux.
+Multiple profiles in pom.xml can be used to refine which test cases are executed.
 
 1. A JAR deployment for CICD will require the test cases to be packaged and deployed also. If the JAR itself is a managed item that can, in theory, 
 be promoted to production, it should not contain any test classes. It is possible to build a jar with the SUT classes and a separate JAR with test classes:

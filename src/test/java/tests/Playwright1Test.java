@@ -17,7 +17,12 @@ class Playwright1Test {
     @BeforeAll
     static void setup() {
         String browser = System.getProperty("browser");
+        String environment = System.getProperty("environment");
+
         com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create();
+
+        logger.info("Executing agaist  " + browser);
+        logger.info("Executing in  " + environment);
 
         switch (browser) {
             case "chrome":
