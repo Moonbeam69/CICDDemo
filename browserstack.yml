@@ -1,0 +1,15 @@
+userName: ericdeback_6U8Wo5
+accessKey: vwvxL5tBMKyGNBtyz1Rv
+platforms:
+  - os: OS X
+    osVersion: Ventura
+    browserName: chrome
+    browserVersion: latest
+  - os: Windows
+    osVersion: 10
+    browserName: playwright-firefox
+    browserVersion: latest
+  - os: OS X
+    osVersion: Monterey
+    browserName: playwright-webkit
+    browserVersion: latest
