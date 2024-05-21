@@ -2,12 +2,12 @@
 
 ## Description
 
-I built this project to demonstrate the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integrationb, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
+I built this project to demonstrate the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integration, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
 
 ### Environment
 - Local env Windows 10
 - 3x self-hosted runners: 2x openSUSE Leap 15.5, 1x Windows 10
-- Browserstack trial account
+- Browserstack trial account (supports only Chrome)
 - IDE Intellij 2024.1 CE, SDK 19
 - OpenJDK 19 "temurin" on runners
 - Personal Github account
