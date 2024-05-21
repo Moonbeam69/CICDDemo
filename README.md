@@ -1,5 +1,5 @@
 # CICD Demo Project
-
+[![Build & Test in DevVer and SIT](https://github.com/Moonbeam69/CICDDemo/actions/workflows/CICD_Main_Pipeline.yml/badge.svg)](https://github.com/Moonbeam69/CICDDemo/actions/workflows/CICD_Main_Pipeline.yml)
 ## Description
 
 I built this project to demonstrate the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integration, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
