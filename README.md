@@ -14,6 +14,7 @@ I built this project to demonstrate the basics principles of CICD pipeline devel
 - Playwright 1.42
 - Junit5
 - DockerDesktop 4.29 
+- foo
 
  
 ### CICD Release Strategy
