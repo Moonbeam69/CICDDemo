@@ -6,6 +6,7 @@ import runners.*;
 import java.util.regex.*;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
+//playwright codegen --target=csharp
 
 class PlaywrightTest4BrowserStack {
 

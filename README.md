@@ -13,7 +13,7 @@ I built this project to demonstrate the basics principles of CICD pipeline devel
 - Personal Github account
 - Playwright 1.42
 - Junit5
-- DockerDesktop 4.29
+- DockerDesktop 4.29 
 
  
 ### CICD Release Strategy
