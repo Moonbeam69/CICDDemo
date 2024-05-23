@@ -19,13 +19,14 @@ jobs:
         profile: [ Localtests ]
         environment: [ DevVer ]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Cache Java
+      - name: Cache JDK
         id: cache-java
         uses: actions/cache@v4
         with:
-          path: ~/.m2/jdk
+          path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
           key: ${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
@@ -36,7 +37,6 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
-          cache: 'm2'
 
       - name: Verify Java version
         run: java -version
