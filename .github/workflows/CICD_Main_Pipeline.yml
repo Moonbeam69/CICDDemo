@@ -30,12 +30,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-java-
 
-      - name: Set up JDK 11
+      - name: Set up JDK 19
         if: steps.cache-java.outputs.cache-hit != 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '19'
-          distribution: 'temuron'
+          distribution: 'temurin'
           cache: 'maven'
 
       - name: Verify Java version
