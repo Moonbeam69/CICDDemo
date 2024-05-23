@@ -25,7 +25,7 @@ jobs:
         id: cache-java
         uses: actions/cache@v4
         with:
-          path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64>
+          path: ~/.m2/jdk
           key: ${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
@@ -36,7 +36,7 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
-          cache: 'maven'
+          cache: 'm2'
 
       - name: Verify Java version
         run: java -version
@@ -44,7 +44,7 @@ jobs:
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
-          path: ~/.m2/repository
+          path: ~/.jabba/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -80,7 +80,7 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
-          cache: 'maven'
+          cache: 'jabba'
 
 
 
