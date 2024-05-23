@@ -31,15 +31,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-java-
 
+#DEBUG
+      - name: Debug Cache
+        run: |
+          echo "Cache hit: ${{ steps.cache-java.outputs.cache-hit }}"
+          ls -la ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+
+      - name: Verify Java version
+        run: java -version
+
+      - name: Check JAVA_HOME
+        run: echo $JAVA_HOME
+#DEBUG
+
       - name: Set up JDK 19
         if: steps.cache-java.outputs.cache-hit != 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '19'
-          distribution: 'temurin'
+          distribution: 'zulu'
 
       - name: Verify Java version
         run: java -version
+      - name: Print JAVA_HOME
+        run: echo $JAVA_HOME
 
       - name: Cache Maven packages
         uses: actions/cache@v2
