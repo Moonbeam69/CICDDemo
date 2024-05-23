@@ -44,7 +44,7 @@ jobs:
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
-          path: ~/.jabba/repository
+          path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -67,22 +67,35 @@ jobs:
         profile: [ Localtests ]
         environment: [ DevInt ]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Cache project dependencies
-        uses: actions/cache@v4.0.2
+      - name: Cache JDK
+        id: cache-java
+        uses: actions/cache@v4
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-jdk19-${{ hashFiles('**/pom.xml') }}-v2
+          path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          key: ${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-java-
 
       - name: Set up JDK 19
-        uses: actions/setup-java@v4.2.1
+        if: steps.cache-java.outputs.cache-hit != 'true'
+        uses: actions/setup-java@v4
         with:
           java-version: '19'
           distribution: 'temurin'
-          cache: 'jabba'
 
+      - name: Verify Java version
+        run: java -version
 
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Build & Test DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }}  -P ${{ matrix.profile}}
@@ -100,20 +113,35 @@ jobs:
         profile: [ Browserstack ]
         environment: [ SIT ]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Cache project dependencies
-        uses: actions/cache@v4.0.2
+      - name: Cache JDK
+        id: cache-java
+        uses: actions/cache@v4
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-jdk19-${{ hashFiles('**/pom.xml') }}
+          path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          key: ${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-java-
 
       - name: Set up JDK 19
+        if: steps.cache-java.outputs.cache-hit != 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '19'
           distribution: 'temurin'
-          cache: 'maven'
+
+      - name: Verify Java version
+        run: java -version
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Build & test SIT with Maven
         run: mvn -B package --file pom.xml -D environment=${{matrix.environment}} -P ${{ matrix.profile}}
