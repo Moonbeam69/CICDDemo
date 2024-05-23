@@ -26,7 +26,7 @@ jobs:
         id: cache-java
         uses: actions/cache@v4
         with:
-          path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
           key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
@@ -35,7 +35,7 @@ jobs:
       - name: Debug Cache
         run: |
           echo "Cache hit: ${{ steps.cache-java.outputs.cache-hit }}"
-          ls -la ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          ls -la ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
 
       - name: Verify Java version
         run: java -version
@@ -89,18 +89,31 @@ jobs:
         id: cache-java
         uses: actions/cache@v4
         with:
-          path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
           key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
+
+#DEBUG
+      - name: Debug Cache
+        run: |
+          echo "Cache hit: ${{ steps.cache-java.outputs.cache-hit }}"
+          ls -la ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
+
+      - name: Verify Java version
+        run: java -version
+
+      - name: Check JAVA_HOME
+        run: echo $JAVA_HOME
+#DEBUG
 
       - name: Set up JDK 19
         if: steps.cache-java.outputs.cache-hit != 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '19'
-          distribution: 'temurin'
-          install-path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          distribution: 'zulu'
+          install-path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
 
       - name: Verify Java version
         run: java -version
@@ -138,7 +151,7 @@ jobs:
         id: cache-java
         uses: actions/cache@v4
         with:
-          path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
           key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
@@ -148,8 +161,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '19'
-          distribution: 'temurin'
-          install-path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
+          distribution: 'zulu'
+          install-path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
 
       - name: Verify Java version
         run: java -version
@@ -184,10 +197,5 @@ jobs:
     runs-on: [self-hosted]
     needs: SIT
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 19
-        uses: actions/setup-java@v4
-        with:
-          java-version: '19'
-          distribution: 'temurin'
-          cache: 'maven'
+      - name: Deploy to production
+        run: echo 'Deployment successful'
