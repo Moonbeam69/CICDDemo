@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
-          key: ${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
 
@@ -75,7 +75,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
-          key: ${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
 
@@ -85,9 +85,12 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
+          install-path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
 
       - name: Verify Java version
         run: java -version
+      - name: Print JAVA_HOME
+        run: echo $JAVA_HOME
 
       - name: Cache Maven packages
         uses: actions/cache@v2
@@ -121,7 +124,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
-          key: ${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-java-
 
@@ -131,9 +134,12 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
+          install-path: ~/action-runner/_work/_tool/Java_Temurin-Hotspot_jdk/19.0.2-7/x64
 
       - name: Verify Java version
         run: java -version
+      - name: Print JAVA_HOME
+        run: echo $JAVA_HOME
 
       - name: Cache Maven packages
         uses: actions/cache@v2
