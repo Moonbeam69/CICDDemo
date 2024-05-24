@@ -1,4 +1,4 @@
-name: Build & Test in DevVer and SIT
+name: CICD workflow
 
 env:
   ACTIONS_STEP_DEBUG: true
