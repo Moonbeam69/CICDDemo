@@ -27,7 +27,7 @@ jobs:
         if: runner.os == 'OPENSUSE2'
         id: check-java
         run: |
-          JAVA_VERSION=19
+          JAVA_VERSION=19.0.2
           if type -p java; then
             echo "Java found in PATH"
             _java=java
@@ -56,7 +56,7 @@ jobs:
       - name: Set up Java on Windows
         if: runner.os == 'Windows'
         run: |
-          $JAVA_VERSION=19
+          $JAVA_VERSION=19.0.2
           if (Get-Command java -ErrorAction SilentlyContinue) {
           Write-Output "Java found in PATH"
           $java = Get-Command java
