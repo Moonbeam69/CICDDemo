@@ -22,42 +22,53 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cache JDK
-        id: cache-java
-        uses: actions/cache@v4
+      - name: Check Java Version
+        id: check-java
+        run: |
+          JAVA_VERSION=19
+          if type -p java; then
+            echo "Java found in PATH"
+            _java=java
+          elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+            echo "Java found in JAVA_HOME"
+            _java="$JAVA_HOME/bin/java"
+          else
+            echo "Java not found"
+            echo "java_installed=false" >> $GITHUB_ENV
+            exit 1
+          fi
+          
+          if [[ "$_java" ]]; then
+            version=$("$_java" -version 2>&1 | awk -F[\"_] '{print $2}')
+            echo "Java version: $version"
+            if [[ "$version" == "$JAVA_VERSION"* ]]; then
+              echo "Java version $JAVA_VERSION is already installed."
+              echo "java_installed=true" >> $GITHUB_ENV
+            else
+              echo "Installed Java version does not match required version."
+              echo "java_installed=false" >> $GITHUB_ENV
+              exit 1
+            fi
+          fi
+
+      - name: Set up cache
+        if: env.java_installed != 'true'
+        uses: actions/cache@v4.0.2
         with:
-          path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
-          key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-java-${{ hashFiles('**/build.gradle') }}
           restore-keys: |
             ${{ runner.os }}-java-
 
-#DEBUG
-      - name: Debug Cache
-        run: |
-          echo "Cache hit: ${{ steps.cache-java.outputs.cache-hit }}"
-          ls -la ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
-
-      - name: Verify Java version
-        run: java -version
-
-      - name: Check JAVA_HOME
-        run: echo $JAVA_HOME
-#DEBUG
 
       - name: Set up JDK 19
-        if: steps.cache-java.outputs.cache-hit != 'true'
+        if: env.java_installed != 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '19'
           distribution: 'zulu'
 
-      - name: Verify Java version
-        run: java -version
-      - name: Print JAVA_HOME
-        run: echo $JAVA_HOME
-
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4.0.2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -121,7 +132,7 @@ jobs:
         run: echo $JAVA_HOME
 
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4.0.2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -170,7 +181,7 @@ jobs:
         run: echo $JAVA_HOME
 
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4.0.2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
