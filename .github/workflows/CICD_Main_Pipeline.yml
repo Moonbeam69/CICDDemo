@@ -12,7 +12,8 @@ on:
 
 jobs:
   DevVer:
-    runs-on: [self-hosted, OPENSUSE2]
+#    runs-on: [self-hosted, OPENSUSE]
+    runs-on: [WINDOWS10]
     strategy:
       matrix:
         browser: [ chrome ]
