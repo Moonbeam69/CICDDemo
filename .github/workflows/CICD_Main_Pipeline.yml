@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        browser: [ chrome ]
+        browser: [ chrome, firefox ]
         profile: [ Localtests ]
         environment: [ DevVer ]
         os: [OPENSUSE2]
@@ -122,7 +122,7 @@ jobs:
         browser: [ chrome, firefox, safari ]
         profile: [ Localtests ]
         environment: [ DevInt ]
-        os: [Windows, OPENSUSE]
+        os: [Windows]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
