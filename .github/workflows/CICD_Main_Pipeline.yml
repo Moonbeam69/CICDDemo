@@ -119,7 +119,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        browser: [ chrome, firefox, webkit ]
+        browser: [ chrome, firefox, safari ]
         profile: [ Localtests ]
         environment: [ DevInt ]
         os: [Windows, OPENSUSE]
