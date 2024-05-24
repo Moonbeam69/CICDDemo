@@ -30,7 +30,7 @@ Note:
 
 Caching is provided by actions/cache but, whilst useful, caches on the cloud. For project dependencies there is valid usecase to cache in the cloud. OpenJDK packages 
 have proved very slow to sync onto a self-hosted runner and given the need to constantly update I have added the follow step to my workflow which checks 
-for a local installtion of (the correct version) of Java:
+for a local installation of (the correct version) of Java:
 
       - name: Check Java Version
         id: check-java
@@ -68,6 +68,9 @@ for a local installtion of (the correct version) of Java:
           key: ${{ runner.os }}-java-${{ hashFiles('**/build.gradle') }}
           restore-keys: |
             ${{ runner.os }}-java-
+
+This script will run in bashrc but not Powershell. I need to investigate a switch.
+
 
 ### Backlog
 

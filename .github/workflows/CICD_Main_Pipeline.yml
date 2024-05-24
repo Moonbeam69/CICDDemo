@@ -12,17 +12,19 @@ on:
 
 jobs:
   DevVer:
-    runs-on: [self-hosted, Windows]
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         browser: [ chrome ]
         profile: [ Localtests ]
         environment: [ DevVer ]
+        os: [Windows, OPENSUSE2]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check Java Version
+      - name: Set up Java on Linux
+        if: runner.os == 'OPENSUSE2'
         id: check-java
         run: |
           JAVA_VERSION=19
@@ -50,6 +52,33 @@ jobs:
               exit 1
             fi
           fi
+
+      - name: Set up Java on Windows
+        if: runner.os == 'Windows'
+        run: |
+          $JAVA_VERSION=19
+          if (Get-Command java -ErrorAction SilentlyContinue) {
+          Write-Output "Java found in PATH"
+          $java = Get-Command java
+          } elseif ($env:JAVA_HOME -and (Test-Path "$env:JAVA_HOME\bin\java.exe")) {
+          Write-Output "Java found in JAVA_HOME"
+          $java = "$env:JAVA_HOME\bin\java.exe"
+          } else {
+          Write-Output "Java not found"
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
+  
+          $version = & $java -version 2>&1 | Select-String 'version' | ForEach-Object { $_.Matches.Groups[1].Value }
+          Write-Output "Java version: $version"
+          if ($version -like "$JAVA_VERSION*") {
+          Write-Output "Java version $JAVA_VERSION is already installed."
+          echo "java_installed=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+          } else {
+          Write-Output "Installed Java version does not match required version."
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
 
       - name: Set up cache
         if: env.java_installed != 'true'
