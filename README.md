@@ -82,4 +82,10 @@ These are items I would like to explorer further as they will make useful contri
 
 3. Integrate my docker images into Kubernetes
 
-4. 
+### Limitations
+
+|   | Description                                          | Mitigation                                                        |
+|---|------------------------------------------------------|-------------------------------------------------------------------|
+| 1 | Cannot run Safari tests on Linux                     | Webkit is supported                                               |
+| 2 | Browserstack eval license only supports Win/Chromium | Buy license                                                       |
+| 3 | Matrix strategy auto-combines                        | Care must be taken that all target environments support the tests |
