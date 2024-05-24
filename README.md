@@ -5,12 +5,12 @@
 I built this project to demonstrate the basics principles of CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integration, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
 
 ### Environment
-- Local env Windows 10
-- 3x self-hosted runners: 2x openSUSE Leap 15.5, 1x Windows 10
-- Browserstack trial account (supports only Chrome)
-- IDE Intellij 2024.1 CE, SDK 19
-- OpenJDK 19 "temurin" on runners
-- Personal Github account
+- Local LAN comprising:
+  - 3x self-hosted runners: 2x openSUSE Leap 15.5 (CLI & GNOME), 1x Windows 10 Pro
+- IDE Intellij 2024.1 CE with Codiumate AI plugin 
+- OpenJDK 19 "temurin" or "zulu" on self-hosted runners
+- Github Free account
+- Browserstack trial account (supports only Windows Chrome)
 - Playwright 1.42
 - Junit5
 - DockerDesktop 4.29 
@@ -19,104 +19,64 @@ I built this project to demonstrate the basics principles of CICD pipeline devel
 ### CICD Release Strategy
 
 1. After a Push or Pull Request into master, CICD_Main_Pipeline.yml is executed
-2. CICD_Main_Pipeline.yml performs the following 4 steps:
-   - Setup: JDK 19 (OpenJDK 'temurin' distribution) is deployed to the runner (self-hosted)
-   - Build: Maven builds the project into a JAR, run the tests (in main/test/java) 
+2. CICD_Main_Pipeline.yml performs the following steps:
+   - Setup: JDK 19 (OpenJDK temurin|zulu distribution) is deployed to the runner (self-hosted)
+   - Build: Maven builds the project, runs tests, uploads test results to Github actions 
+   - Tests are Junit tests with and without Playwright running on local or Browserstack browsers 
    - Docker: Docker creates a new Docker image from the project Dockerfile, copies and executes the mainClass from project Jar (no test execution)
-   - Pipeline yml to executes with the following test data combos:
-   
-      DevVer with profile for self-hosted runner: linux + chrome
-      DevInt with profile for self-hosted runner: linux + chrome + firefox
-      SIT    with profile for Browserstack: Windows10 + chrome
+   - My workflow yml uses various strategies to test on OS, browsers and platforms. OS and browsers are configured via the strategy syntax and platfoms via Maven profiles 
+
+Note:
+
+Caching is provided by actions/cache but, whilst useful, caches on the cloud. For project dependencies there is valid usecase to cache in the cloud. OpenJDK packages 
+have proved very slow to sync onto a self-hosted runner and given the need to constantly update I have added the follow step to my workflow which checks 
+for a local installtion of (the correct version) of Java:
+
+      - name: Check Java Version
+        id: check-java
+        run: |
+          JAVA_VERSION=19
+          if type -p java; then
+            echo "Java found in PATH"
+            _java=java
+          elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+            echo "Java found in JAVA_HOME"
+            _java="$JAVA_HOME/bin/java"
+          else
+            echo "Java not found"
+            echo "java_installed=false" >> $GITHUB_ENV
+            exit 1
+          fi
+          
+          if [[ "$_java" ]]; then
+            version=$("$_java" -version 2>&1 | awk -F[\"_] '{print $2}')
+            echo "Java version: $version"
+            if [[ "$version" == "$JAVA_VERSION"* ]]; then
+              echo "Java version $JAVA_VERSION is already installed."
+              echo "java_installed=true" >> $GITHUB_ENV
+            else
+              echo "Installed Java version does not match required version."
+              echo "java_installed=false" >> $GITHUB_ENV
+              exit 1
+            fi
+          fi
+
+      - name: Set up cache
+        if: env.java_installed != 'true'
+        uses: actions/cache@v4.0.2
+        with:
+          key: ${{ runner.os }}-java-${{ hashFiles('**/build.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-java-
 
 ### Backlog
 
-0. Support for test executions on multiple browser and platforms, using in-built browser support (FF & Chr)), others incl Browserstack
+These are items I would like to explorer further as they will make useful contributions to my understanding of DevOps CICD:
 
-Done. using matrix syntax in workflow yml. Safari is supported if self-hosted host has Safari installed. No Safari support on Linux.
-Multiple profiles in pom.xml can be used to refine which test cases are executed.
+1. Create DORA metrics. Github Actions does not provide these out of the box (why not). Need to investigate what are freeware solutions to quickly expose these KPIs.
 
-1. Produce a build JAR with test cases and one without (-> production) 
+2. Explore GitHub MarketPlace for more useful actions
 
-   <groupId>com.example</groupId>
-   <artifactId>my-app</artifactId>
-   <version>1.0-SNAPSHOT</version>
-   <packaging>jar</packaging>
+3. Integrate my docker images into Kubernetes
 
-        <properties>
-            <maven.compiler.source>11</maven.compiler.source>
-            <maven.compiler.target>11</maven.compiler.target>
-        </properties>
-    
-        <dependencies>
-            <!-- Your dependencies go here -->
-        </dependencies>
-    
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                            <configuration>
-                                <classifier>tests</classifier>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>default-jar</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                            <configuration>
-                                <excludes>
-                                    <exclude>**/*Test.class</exclude>
-                                </excludes>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
-                    <configuration>
-                        <additionalClasspathElements>
-                            <additionalClasspathElement>${project.build.directory}/${project.build.finalName}-tests.jar</additionalClasspathElement>
-                        </additionalClasspathElements>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-
-
-Note: Building and testing on a runner is different from building and running on a dedicated Cloud environment. In a microservices architecture, is this the right convoluted approach? 
-- Build jar and test jar on a runner (mvn package -no test)  
-- Deploy jar to target environment with some environment var set.
-- Run test classes from the runner
-- Rebuild test jar on a runner and point test classes at target environment
-
-Done: Cloud environments can be setup as runners and use maven to build the app and its dependencies.
-
-2. Explore the use of the free runners provided by GitHub, e.g. linux-latest, windows-latest etc.
-
-   Findings: Easy enough with "linux-latest" and/or "windows-latest" but no control with personal GitHub account over spec of these build servers. Nor their availability:
-   Have found that workflow jobs can be queued and will not execute immediately.
-
-3. Explore how link different workflow files to promote change through a series of test environment to production, e.g.:
-
-   Dev -> DevVer -> DevInt -> SIT/UAT -> Production
-
-   This can be managed through tasks in a workflow file
-
-4. Deploy to Docker images built on different operating systems
-
-   The default Docker builder is linux-based. I have not yet found out how to build a Docker image based on Windows. 
-
-5. https://github.com/Moonbeam69/CICDDemo/issues/9
-
-6. Explore GitHub MarketPlace for more interesting actions
+4. 
