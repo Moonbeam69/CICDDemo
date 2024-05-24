@@ -12,7 +12,7 @@ on:
 
 jobs:
   DevVer:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, OPENSUSE2]
     strategy:
       matrix:
         browser: [ chrome ]
@@ -85,7 +85,7 @@ jobs:
           path: target/surefire-reports/
 
   DevInt:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, OPENSUSE2]
     needs: DevVer
     strategy:
       matrix:
@@ -93,52 +93,6 @@ jobs:
         profile: [ Localtests ]
         environment: [ DevInt ]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Cache JDK
-        id: cache-java
-        uses: actions/cache@v4
-        with:
-          path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
-          key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-java-
-
-#DEBUG
-      - name: Debug Cache
-        run: |
-          echo "Cache hit: ${{ steps.cache-java.outputs.cache-hit }}"
-          ls -la ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
-
-      - name: Verify Java version
-        run: java -version
-
-      - name: Check JAVA_HOME
-        run: echo $JAVA_HOME
-#DEBUG
-
-      - name: Set up JDK 19
-        if: steps.cache-java.outputs.cache-hit != 'true'
-        uses: actions/setup-java@v4
-        with:
-          java-version: '19'
-          distribution: 'zulu'
-          install-path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
-
-      - name: Verify Java version
-        run: java -version
-      - name: Print JAVA_HOME
-        run: echo $JAVA_HOME
-
-      - name: Cache Maven packages
-        uses: actions/cache@v4.0.2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
       - name: Build & Test DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }}  -P ${{ matrix.profile}}
       - name: Upload test results
@@ -148,46 +102,13 @@ jobs:
           path: target/surefire-reports/
 
   SIT:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, OPENSUSE2]
     needs: DevInt
     strategy:
       matrix:
         profile: [ Browserstack ]
         environment: [ SIT ]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Cache JDK
-        id: cache-java
-        uses: actions/cache@v4
-        with:
-          path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
-          key: ${{ runner.os }}-java-19-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-java-
-
-      - name: Set up JDK 19
-        if: steps.cache-java.outputs.cache-hit != 'true'
-        uses: actions/setup-java@v4
-        with:
-          java-version: '19'
-          distribution: 'zulu'
-          install-path: ~/action-runner/_work/_tool/Java_Zulu_jdk/19.0.2-7/x64
-
-      - name: Verify Java version
-        run: java -version
-      - name: Print JAVA_HOME
-        run: echo $JAVA_HOME
-
-      - name: Cache Maven packages
-        uses: actions/cache@v4.0.2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
       - name: Build & test SIT with Maven
         run: mvn -B package --file pom.xml -D environment=${{matrix.environment}} -P ${{ matrix.profile}}
 
@@ -205,7 +126,7 @@ jobs:
           path: target/surefire-reports/
 
   Production:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, OPENSUSE2]
     needs: SIT
     steps:
       - name: Deploy to production

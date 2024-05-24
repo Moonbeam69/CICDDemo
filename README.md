@@ -36,21 +36,63 @@ I built this project to demonstrate the basics principles of CICD pipeline devel
 Done. using matrix syntax in workflow yml. Safari is supported if self-hosted host has Safari installed. No Safari support on Linux.
 Multiple profiles in pom.xml can be used to refine which test cases are executed.
 
-1. A JAR deployment for CICD will require the test cases to be packaged and deployed also. If the JAR itself is a managed item that can, in theory, 
-be promoted to production, it should not contain any test classes. It is possible to build a jar with the SUT classes and a separate JAR with test classes:
+1. Produce a build JAR with test cases and one without (-> production) 
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+   <groupId>com.example</groupId>
+   <artifactId>my-app</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>jar</packaging>
+
+        <properties>
+            <maven.compiler.source>11</maven.compiler.source>
+            <maven.compiler.target>11</maven.compiler.target>
+        </properties>
+    
+        <dependencies>
+            <!-- Your dependencies go here -->
+        </dependencies>
+    
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>tests</classifier>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>default-jar</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <excludes>
+                                    <exclude>**/*Test.class</exclude>
+                                </excludes>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <configuration>
+                        <additionalClasspathElements>
+                            <additionalClasspathElement>${project.build.directory}/${project.build.finalName}-tests.jar</additionalClasspathElement>
+                        </additionalClasspathElements>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+
 
 Note: Building and testing on a runner is different from building and running on a dedicated Cloud environment. In a microservices architecture, is this the right convoluted approach? 
 - Build jar and test jar on a runner (mvn package -no test)  
