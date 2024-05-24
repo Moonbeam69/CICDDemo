@@ -129,7 +129,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: DevInt test results ${{ matrix.browser }} - ${{ github.run_id }}
+          name: DevInt test results ${{ matrix.os }} - ${{ matrix.browser }} - ${{ github.run_id }}
           path: target/surefire-reports/
 
   SIT:
