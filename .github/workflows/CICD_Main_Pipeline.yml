@@ -18,7 +18,7 @@ jobs:
         browser: [ chrome ]
         profile: [ Localtests ]
         environment: [ DevVer ]
-        os: [Windows, OPENSUSE2]
+        os: [Windows]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -111,7 +111,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: DevVer test results ${{ matrix.browser }} - ${{ github.run_id }}
+          name: DevVer test results ${{ matrix.os }} - ${{ matrix.browser }} - ${{ github.run_id }}
           path: target/surefire-reports/
 
   DevInt:
@@ -122,6 +122,7 @@ jobs:
         browser: [ chrome, firefox ]
         profile: [ Localtests ]
         environment: [ DevInt ]
+        os: [Windows, OPENSUSE2, OPENSUSE]
     steps:
       - name: Build & Test DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }}  -P ${{ matrix.profile}}
@@ -152,7 +153,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: SIT test results ${{ matrix.browser }} - ${{ github.run_id }}
+          name: SIT test results Browserstack - ${{ github.run_id }}
           path: target/surefire-reports/
 
   Production:
