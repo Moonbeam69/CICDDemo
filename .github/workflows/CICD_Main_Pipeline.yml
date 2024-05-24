@@ -18,7 +18,7 @@ jobs:
         browser: [ chrome ]
         profile: [ Localtests ]
         environment: [ DevVer ]
-        os: [Windows]
+        os: [OPENSUSE2]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -115,14 +115,14 @@ jobs:
           path: target/surefire-reports/
 
   DevInt:
-    runs-on: [self-hosted, OPENSUSE2]
     needs: DevVer
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        browser: [ chrome, firefox ]
+        browser: [ chrome, firefox, webkit ]
         profile: [ Localtests ]
         environment: [ DevInt ]
-        os: [Windows, OPENSUSE2, OPENSUSE]
+        os: [Windows, OPENSUSE]
     steps:
       - name: Build & Test DevInt with Maven
         run: mvn -B package --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }}  -P ${{ matrix.profile}}
@@ -133,7 +133,7 @@ jobs:
           path: target/surefire-reports/
 
   SIT:
-    runs-on: [self-hosted, OPENSUSE2]
+    runs-on: [self-hosted]
     needs: DevInt
     strategy:
       matrix:
