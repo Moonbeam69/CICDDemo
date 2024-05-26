@@ -86,7 +86,7 @@ analysis of requirements coverage can be done.
 
 4. Explore GitHub MarketPlace for more useful actions
 
-5Integrate my docker images into Kubernetes
+5. Integrate my docker images into Kubernetes
 
 ### Limitations
 
