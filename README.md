@@ -76,11 +76,17 @@ This script will run in bashrc but not Powershell. I need to investigate a switc
 
 These are items I would like to explorer further as they will make useful contributions to my understanding of DevOps CICD:
 
-1. Create DORA metrics. Github Actions does not provide these out of the box (why not). Need to investigate what are freeware solutions to quickly expose these KPIs.
+1. Investigate how test reports can be more meaningful and easier to read. The default report (per test class) only reports if there errors but does report 
+what was tested. Can a descrioption of teh test be included in the or in the log (logger)?
 
-2. Explore GitHub MarketPlace for more useful actions
+2. Can test cases be linked to a requirement and can the requirement be linked to the test case so that meaningful 
+analysis of requirements coverage can be done. 
 
-3. Integrate my docker images into Kubernetes
+3. Create DORA metrics. Github Actions does not provide these out of the box (why not). Need to investigate what are freeware solutions to quickly expose these KPIs.
+
+4. Explore GitHub MarketPlace for more useful actions
+
+5Integrate my docker images into Kubernetes
 
 ### Limitations
 

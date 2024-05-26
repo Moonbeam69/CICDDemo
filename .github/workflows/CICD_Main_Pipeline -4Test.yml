@@ -1,0 +1,335 @@
+name: CICD workflow - 4Test
+
+env:
+  ACTIONS_STEP_DEBUG: true
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  DevVer:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        browser: [ chrome, firefox ]
+        profile: [ Localtests ]
+        environment: [ DevVer ]
+        os: [OPENSUSE2]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java on Linux
+        if: runner.os == 'OPENSUSE2'
+        id: check-java
+        run: |
+          JAVA_VERSION=19.0.2
+          if type -p java; then
+            echo "Java found in PATH"
+            _java=java
+          elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+            echo "Java found in JAVA_HOME"
+            _java="$JAVA_HOME/bin/java"
+          else
+            echo "Java not found"
+            echo "java_installed=false" >> $GITHUB_ENV
+            exit 1
+          fi
+          
+          if [[ "$_java" ]]; then
+            version=$("$_java" -version 2>&1 | awk -F[\"_] '{print $2}')
+            echo "Java version: $version"
+            if [[ "$version" == "$JAVA_VERSION"* ]]; then
+              echo "Java version $JAVA_VERSION is already installed."
+              echo "java_installed=true" >> $GITHUB_ENV
+            else
+              echo "Installed Java version does not match required version."
+              echo "java_installed=false" >> $GITHUB_ENV
+              exit 1
+            fi
+          fi
+
+      - name: Set up Java on Windows
+        if: runner.os == 'Windows'
+        run: |
+          $JAVA_VERSION=19.0.2
+          if (Get-Command java -ErrorAction SilentlyContinue) {
+          Write-Output "Java found in PATH"
+          $java = Get-Command java
+          } elseif ($env:JAVA_HOME -and (Test-Path "$env:JAVA_HOME\bin\java.exe")) {
+          Write-Output "Java found in JAVA_HOME"
+          $java = "$env:JAVA_HOME\bin\java.exe"
+          } else {
+          Write-Output "Java not found"
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
+  
+          $version = & $java -version 2>&1 | Select-String 'version' | ForEach-Object { $_.Matches.Groups[1].Value }
+          Write-Output "Java version: $version"
+          if ($version -like "$JAVA_VERSION*") {
+          Write-Output "Java version $JAVA_VERSION is already installed."
+          echo "java_installed=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+          } else {
+          Write-Output "Installed Java version does not match required version."
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
+
+      - name: Set up cache
+        if: env.java_installed != 'true'
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-java-${{ hashFiles('**/build.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-java-
+          
+
+      - name: Set up JDK 19
+        if: env.java_installed != 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '19'
+          distribution: 'zulu'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build & Test DevVer with Maven
+        run: mvn -B package --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }} -P ${{ matrix.profile}}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: DevVer test results ${{ matrix.os }} - ${{ matrix.browser }} - ${{ github.run_id }}
+          path: target/surefire-reports/
+
+  DevInt:
+    needs: DevVer
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        browser: [ chrome, firefox, safari ]
+        profile: [ Localtests ]
+        environment: [ DevInt ]
+        os: [Windows]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java on Linux
+        if: runner.os == 'OPENSUSE2'
+        id: check-java
+        run: |
+          JAVA_VERSION=19.0.2
+          if type -p java; then
+            echo "Java found in PATH"
+            _java=java
+          elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+            echo "Java found in JAVA_HOME"
+            _java="$JAVA_HOME/bin/java"
+          else
+            echo "Java not found"
+            echo "java_installed=false" >> $GITHUB_ENV
+            exit 1
+          fi
+          
+          if [[ "$_java" ]]; then
+            version=$("$_java" -version 2>&1 | awk -F[\"_] '{print $2}')
+            echo "Java version: $version"
+            if [[ "$version" == "$JAVA_VERSION"* ]]; then
+              echo "Java version $JAVA_VERSION is already installed."
+              echo "java_installed=true" >> $GITHUB_ENV
+            else
+              echo "Installed Java version does not match required version."
+              echo "java_installed=false" >> $GITHUB_ENV
+              exit 1
+            fi
+          fi
+
+      - name: Set up Java on Windows
+        if: runner.os == 'Windows'
+        run: |
+          $JAVA_VERSION=19.0.2
+          if (Get-Command java -ErrorAction SilentlyContinue) {
+          Write-Output "Java found in PATH"
+          $java = Get-Command java
+          } elseif ($env:JAVA_HOME -and (Test-Path "$env:JAVA_HOME\bin\java.exe")) {
+          Write-Output "Java found in JAVA_HOME"
+          $java = "$env:JAVA_HOME\bin\java.exe"
+          } else {
+          Write-Output "Java not found"
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
+          
+          $version = & $java -version 2>&1 | Select-String 'version' | ForEach-Object { $_.Matches.Groups[1].Value }
+          Write-Output "Java version: $version"
+          if ($version -like "$JAVA_VERSION*") {
+          Write-Output "Java version $JAVA_VERSION is already installed."
+          echo "java_installed=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+          } else {
+          Write-Output "Installed Java version does not match required version."
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
+
+      - name: Set up cache
+        if: env.java_installed != 'true'
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-java-${{ hashFiles('**/build.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-java-
+
+
+      - name: Set up JDK 19
+        if: env.java_installed != 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '19'
+          distribution: 'zulu'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build & Test DevInt with Maven
+        run: mvn -B package --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }}  -P ${{ matrix.profile}}
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: DevInt test results ${{ matrix.os }} - ${{ matrix.browser }} - ${{ github.run_id }}
+          path: target/surefire-reports/
+
+  SIT:
+    runs-on: [self-hosted]
+    needs: DevInt
+    strategy:
+      matrix:
+        profile: [ Browserstack ]
+        environment: [ SIT ]
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java on Linux
+        if: runner.os == 'OPENSUSE2'
+        id: check-java
+        run: |
+          JAVA_VERSION=19.0.2
+          if type -p java; then
+            echo "Java found in PATH"
+            _java=java
+          elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+            echo "Java found in JAVA_HOME"
+            _java="$JAVA_HOME/bin/java"
+          else
+            echo "Java not found"
+            echo "java_installed=false" >> $GITHUB_ENV
+            exit 1
+          fi
+          
+          if [[ "$_java" ]]; then
+            version=$("$_java" -version 2>&1 | awk -F[\"_] '{print $2}')
+            echo "Java version: $version"
+            if [[ "$version" == "$JAVA_VERSION"* ]]; then
+              echo "Java version $JAVA_VERSION is already installed."
+              echo "java_installed=true" >> $GITHUB_ENV
+            else
+              echo "Installed Java version does not match required version."
+              echo "java_installed=false" >> $GITHUB_ENV
+              exit 1
+            fi
+          fi
+
+      - name: Set up Java on Windows
+        if: runner.os == 'Windows'
+        run: |
+          $JAVA_VERSION=19.0.2
+          if (Get-Command java -ErrorAction SilentlyContinue) {
+          Write-Output "Java found in PATH"
+          $java = Get-Command java
+          } elseif ($env:JAVA_HOME -and (Test-Path "$env:JAVA_HOME\bin\java.exe")) {
+          Write-Output "Java found in JAVA_HOME"
+          $java = "$env:JAVA_HOME\bin\java.exe"
+          } else {
+          Write-Output "Java not found"
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
+          
+          $version = & $java -version 2>&1 | Select-String 'version' | ForEach-Object { $_.Matches.Groups[1].Value }
+          Write-Output "Java version: $version"
+          if ($version -like "$JAVA_VERSION*") {
+          Write-Output "Java version $JAVA_VERSION is already installed."
+          echo "java_installed=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+          } else {
+          Write-Output "Installed Java version does not match required version."
+          echo "java_installed=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+          exit 1
+          }
+
+      - name: Set up cache
+        if: env.java_installed != 'true'
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-java-${{ hashFiles('**/build.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-java-
+
+
+      - name: Set up JDK 19
+        if: env.java_installed != 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '19'
+          distribution: 'zulu'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build & test SIT with Maven
+        run: mvn -B package --file pom.xml -D environment=${{matrix.environment}} -P ${{ matrix.profile}}
+
+#      - name: Remove remove previous Docker DevInt container instance
+#        run: docker rm -f SIT
+#      - name: Build Docker image
+#        run: docker build . --file Dockerfile_SIT --tag cicd_project_image:SIT
+#      - name: Run docker image
+#        run: docker run --name SIT cicd_project_image:SIT
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: SIT test results Browserstack - ${{ github.run_id }}
+          path: target/surefire-reports/
+
+  Production:
+    runs-on: [self-hosted, OPENSUSE2]
+    needs: SIT
+    steps:
+      - name: Deploy to production
+        run: echo 'Deployment successful'

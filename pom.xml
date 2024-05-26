@@ -8,8 +8,8 @@
     <artifactId>CICD_Project</artifactId>
     <version>v1.0</version>
     <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <browserstack-local-java>1.0.6</browserstack-local-java>
         <httpclient>4.5.13</httpclient>
