@@ -56,7 +56,7 @@ jobs:
       - name: Set up Java on Windows
         if: runner.os == 'Windows'
         run: |
-          $JAVA_VERSION=19.0.2
+          $JAVA_VERSION=17
           if (Get-Command java -ErrorAction SilentlyContinue) {
           Write-Output "Java found in PATH"
           $java = Get-Command java

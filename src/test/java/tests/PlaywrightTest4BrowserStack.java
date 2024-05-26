@@ -8,6 +8,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 //playwright codegen --target=csharp
 
+
 class PlaywrightTest4BrowserStack {
 
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(PlaywrightTest4BrowserStack.class);
