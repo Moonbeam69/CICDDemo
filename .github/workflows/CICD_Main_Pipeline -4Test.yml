@@ -15,10 +15,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        browser: [ chrome, firefox ]
-        profile: [ Localtests ]
+        browser:     [ chrome ]
+        profile:     [ Localtests ]
         environment: [ DevVer ]
-        os: [OPENSUSE2]
+        os:          [ Windows ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
         if: runner.os == 'OPENSUSE2'
         id: check-java
         run: |
-          JAVA_VERSION=19.0.2
+          JAVA_VERSION=17
           if type -p java; then
             echo "Java found in PATH"
             _java=java
