@@ -3,12 +3,15 @@ package tests;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.*;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.*;
+import runners.*;
 
 import java.util.regex.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 @UsePlaywright
+@ExtendWith(DisplayNameReporter.class)
 class Playwright_MainTest {
 
     static BrowserType browserType;
