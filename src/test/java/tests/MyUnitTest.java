@@ -3,7 +3,7 @@ package tests;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MyAppTest {
+public class MyUnitTest {
     static String environment;
 
     @BeforeAll
@@ -11,7 +11,7 @@ public class MyAppTest {
         environment = System.getProperty("environment");
     }
     @Test
-    public void FirstAppDumbTest(TestInfo testInfo) {
+    public void FirstAppDumbTest() {
         System.out.println("Unit Test #1");
         // debug: System.out.println("testinfo: " + testInfo.getTestMethod().get().getName());
 

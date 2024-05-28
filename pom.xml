@@ -79,13 +79,6 @@
                         <include>**/*Test.java</include>
                     </includes>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.10.0</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -164,7 +157,7 @@
                                 <include>${Local_test_case}</include>
                             </includes>
                             <excludes>
-                                <exclude>**/tests.MyAppTest.java</exclude>
+                                <exclude>${Browserstack_test_case}</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
@@ -186,7 +179,7 @@
                                 <include>${Browserstack_test_case}</include>
                             </includes>
                             <excludes>
-                                <exclude>**/tests.MyAppTest.java</exclude>
+                                <exclude>**/tests.MyUnitTest.java</exclude>
                                 <exclude>**/>${Local_test_case}</exclude>
                             </excludes>
                             <systemPropertyVariables>
@@ -208,4 +201,6 @@
             </build>
         </profile>
     </profiles>
+
+
 </project>
