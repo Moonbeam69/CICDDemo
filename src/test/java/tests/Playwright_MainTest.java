@@ -2,6 +2,7 @@ package tests;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.*;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 import runners.*;
@@ -9,6 +10,7 @@ import runners.*;
 import java.util.regex.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
+import static io.qameta.allure.SeverityLevel.CRITICAL;
 
 @UsePlaywright
 @ExtendWith(DisplayNameReporter.class)
@@ -46,6 +48,12 @@ class Playwright_MainTest {
 
     @Test
     @DisplayName("Verify the layout of the homepage")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(CRITICAL)
+    @Owner("John Doe")
+    @Link(name = "Website", url = "https://dev.example.com/")
+    @Issue("AUTH-123")
+    @TmsLink("TMS-456")
     void tc1_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
