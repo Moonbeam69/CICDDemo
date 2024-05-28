@@ -164,6 +164,18 @@
             <artifactId>json-simple</artifactId>
             <version>${json-simple}</version>
         </dependency>
+         <!-- SLF4J API -->
+         <dependency>
+             <groupId>org.slf4j</groupId>
+             <artifactId>slf4j-api</artifactId>
+             <version>1.7.32</version>
+         </dependency>
+         <!-- SLF4J Simple Logger -->
+         <dependency>
+             <groupId>org.slf4j</groupId>
+             <artifactId>slf4j-simple</artifactId>
+             <version>1.7.32</version>
+         </dependency>
     </dependencies>
 
     <profiles>
