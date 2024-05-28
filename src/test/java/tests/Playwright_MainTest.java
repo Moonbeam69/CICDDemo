@@ -10,7 +10,9 @@ import runners.*;
 import java.util.regex.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
+import static io.qameta.allure.SeverityLevel.BLOCKER;
 import static io.qameta.allure.SeverityLevel.CRITICAL;
+import static io.qameta.allure.SeverityLevel.NORMAL;
 
 @UsePlaywright
 @ExtendWith(DisplayNameReporter.class)
@@ -50,7 +52,7 @@ class Playwright_MainTest {
     @DisplayName("Verify the layout of the homepage")
     @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
     @Severity(CRITICAL)
-    @Owner("John Doe")
+    @Owner("Tester 1")
     @Link(name = "Website", url = "https://dev.example.com/")
     @Issue("AUTH-123")
     @TmsLink("TMS-456")
@@ -92,6 +94,11 @@ class Playwright_MainTest {
 
     @Test
     @DisplayName("Verify successful login")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(CRITICAL)
+    @Owner("Tester 1")
+    @Link(name = "Website", url = "https://dev.example.com/")
+    @TmsLink("TMS-457")
     void tc2_Navigation(TestInfo testInfo) {
 
         long startTime = System.currentTimeMillis();
@@ -131,6 +138,11 @@ class Playwright_MainTest {
 
     @Test
     @DisplayName("Verify unsuccessful login & recovery")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(BLOCKER)
+    @Owner("Tester 2")
+    @Link(name = "Website", url = "https://dev.example.com/")
+    @TmsLink("TMS-456")
     void tc3_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
@@ -169,7 +181,183 @@ class Playwright_MainTest {
 
     @Test
     @DisplayName("Verify successful logout")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(NORMAL)
+    @Owner("Tester 3")
+    @Link(name = "Website", url = "https://dev.example.com/")
+    @TmsLink("TMS-458")
     void tc4_Navigation(TestInfo testInfo) {
+
+        long startTime = System.currentTimeMillis();
+
+        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
+            BrowserContext context = browser.newContext();
+
+            Page page = context.newPage();
+            page.navigate("https://playwright.dev");
+
+            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
+            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+
+//            for (Rule r : accessibilityScanResults.getViolations()) {
+//                logger.info("===");
+//                logger.info(r.toString());
+//            }
+
+            // Expect a title "to contain" a substring.
+            assertThat(page).hasTitle(Pattern.compile("Playwright"));
+            logger.info(page.title());
+
+            page.locator("//html/body/div/div[2]/header/div/div/a").click();
+            assertThat(page).hasTitle("Installation | Playwright");
+
+
+            long endTime = System.currentTimeMillis();
+            long elapsedTime = endTime - startTime;
+            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    @DisplayName("Verify successful logout")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(NORMAL)
+    @Owner("Tester 3")
+    @TmsLink("TMS-459")
+    void tc5_Navigation(TestInfo testInfo) {
+
+        long startTime = System.currentTimeMillis();
+
+        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
+            BrowserContext context = browser.newContext();
+
+            Page page = context.newPage();
+            page.navigate("https://playwright.dev");
+
+            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
+            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+
+//            for (Rule r : accessibilityScanResults.getViolations()) {
+//                logger.info("===");
+//                logger.info(r.toString());
+//            }
+
+            // Expect a title "to contain" a substring.
+            assertThat(page).hasTitle(Pattern.compile("Playwright"));
+            logger.info(page.title());
+
+            page.locator("//html/body/div/div[2]/header/div/div/a").click();
+            assertThat(page).hasTitle("Installation | Playwright");
+
+
+            long endTime = System.currentTimeMillis();
+            long elapsedTime = endTime - startTime;
+            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    @DisplayName("Verify successful logout")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(NORMAL)
+    @Owner("Tester 3")
+    @Link(name = "Website", url = "https://dev.example.com/")
+    @TmsLink("TMS-456")
+    void tc6_Navigation(TestInfo testInfo) {
+
+        long startTime = System.currentTimeMillis();
+
+        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
+            BrowserContext context = browser.newContext();
+
+            Page page = context.newPage();
+            page.navigate("https://playwright.dev");
+
+            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
+            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+
+//            for (Rule r : accessibilityScanResults.getViolations()) {
+//                logger.info("===");
+//                logger.info(r.toString());
+//            }
+
+            // Expect a title "to contain" a substring.
+            assertThat(page).hasTitle(Pattern.compile("Playwright"));
+            logger.info(page.title());
+
+            page.locator("//html/body/div/div[2]/header/div/div/a").click();
+            assertThat(page).hasTitle("Installation | Playwright");
+
+
+            long endTime = System.currentTimeMillis();
+            long elapsedTime = endTime - startTime;
+            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    @DisplayName("Verify successful logout")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(NORMAL)
+    @Owner("Tester 3")
+    @Link(name = "Website", url = "https://dev.example.com/")
+    @TmsLink("TMS-460")
+    void tc7_Navigation(TestInfo testInfo) {
+
+        long startTime = System.currentTimeMillis();
+
+        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
+            BrowserContext context = browser.newContext();
+
+            Page page = context.newPage();
+            page.navigate("https://playwright.dev");
+
+            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
+            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+
+//            for (Rule r : accessibilityScanResults.getViolations()) {
+//                logger.info("===");
+//                logger.info(r.toString());
+//            }
+
+            // Expect a title "to contain" a substring.
+            assertThat(page).hasTitle(Pattern.compile("Playwright"));
+            logger.info(page.title());
+
+            page.locator("//html/body/div/div[2]/header/div/div/a").click();
+            assertThat(page).hasTitle("Installation | Playwright");
+
+
+            long endTime = System.currentTimeMillis();
+            long elapsedTime = endTime - startTime;
+            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    @DisplayName("Verify successful logout")
+    @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
+    @Severity(NORMAL)
+    @Owner("Tester 3")
+    @Link(name = "Website", url = "https://dev.example.com/")
+    @TmsLink("TMS-461")
+    void tc8_Navigation(TestInfo testInfo) {
 
         long startTime = System.currentTimeMillis();
 
