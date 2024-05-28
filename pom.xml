@@ -14,7 +14,7 @@
         <browserstack-local-java>1.0.6</browserstack-local-java>
         <httpclient>4.5.13</httpclient>
         <json-simple>1.1</json-simple>
-        <Local_test_case>**/tests.Playwright1Test.java</Local_test_case>
+        <Local_test_case>**/tests.Playwright_MainTest.java</Local_test_case>
         <Browserstack_test_case>**/tests.PlaywrightTest4BrowserStack.java</Browserstack_test_case>
         <parallel.count>2</parallel.count>
     </properties>

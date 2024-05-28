@@ -9,10 +9,10 @@ import java.util.regex.*;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 
 @UsePlaywright
-class Playwright1Test {
+class Playwright_MainTest {
 
     static BrowserType browserType;
-    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Playwright1Test.class);
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Playwright_MainTest.class);
     
     @BeforeAll
     static void setup() {
@@ -42,6 +42,7 @@ class Playwright1Test {
     }
 
     @Test
+    @DisplayName("Verify the layout of the homepage")
     void tc1_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
@@ -79,6 +80,7 @@ class Playwright1Test {
     }
 
     @Test
+    @DisplayName("Verify successful login")
     void tc2_Navigation(TestInfo testInfo) {
 
         long startTime = System.currentTimeMillis();
@@ -117,6 +119,7 @@ class Playwright1Test {
     }
 
     @Test
+    @DisplayName("Verify unsuccessful login & recovery")
     void tc3_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
@@ -154,6 +157,7 @@ class Playwright1Test {
     }
 
     @Test
+    @DisplayName("Verify successful logout")
     void tc4_Navigation(TestInfo testInfo) {
 
         long startTime = System.currentTimeMillis();

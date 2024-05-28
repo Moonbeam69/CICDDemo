@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         browser:     [ chrome ]
-        profile:     [ Localtests ]
+        profile:     [ Localtests ] # Browserstack
         environment: [ DevVer ]
         os:          [ Windows ]
     steps:
@@ -106,7 +106,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build & Test DevVer with Maven
-        run: mvn -B package --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }} -P ${{ matrix.profile}}
+        run: mvn -B test --file pom.xml -Denvironment=${{matrix.environment}} -Dbrowser=${{ matrix.browser }} -P${{ matrix.profile}}
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
