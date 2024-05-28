@@ -113,3 +113,11 @@ jobs:
         with:
           name: DevVer test results ${{ matrix.os }} - ${{ matrix.browser }} - ${{ github.run_id }}
           path: target/surefire-reports/
+
+      - name: Generate Allure Report
+        run: mvn allure:report
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin
