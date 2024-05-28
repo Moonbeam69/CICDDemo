@@ -29,11 +29,13 @@ I built this project to demonstrate the basics principles of CICD pipeline devel
    - Tests are Junit tests with and without Playwright running on local or Browserstack browsers 
    - Docker: Docker creates a new Docker image from the project Dockerfile, copies and executes the mainClass from project Jar (no test execution)
    - My workflow yml uses various strategies to test on OS, browsers and platforms. OS and browsers are configured via the strategy syntax and platfoms via Maven profiles 
+   - Test Reporting. By default, Junit provides limited test reporting capability. Certainly, for client projects in regulated markets more transparency is warrented. The additiona of
+customer reporting classes (DisplayNameReporter.class) or reporting frameworks, e.g. Allure, improve this greatly.
 
 Note:
 
-Caching is provided by actions/cache but, whilst useful, caches on the cloud. For project dependencies there is valid usecase to cache in the cloud. OpenJDK packages 
-have proved very slow to sync onto a self-hosted runner and given the need to constantly update I have added the follow step to my workflow which checks 
+Caching is provided by actions/cache but, whilst useful, caches in the cloud. For project dependencies there is a valid usecase to cache in the cloud. OpenJDK packages 
+have proved very slow to sync onto a self-hosted runner and given the lack of need to constantly update, I have added the follow step to my workflow which checks 
 for a local installation of (the correct version) of Java:
 
       - name: Check Java Version
