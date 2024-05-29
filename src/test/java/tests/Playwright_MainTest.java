@@ -83,8 +83,9 @@ class Playwright_MainTest {
             }
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -127,8 +128,9 @@ class Playwright_MainTest {
             }
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -170,8 +172,9 @@ class Playwright_MainTest {
             }
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -212,8 +215,9 @@ class Playwright_MainTest {
 
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -254,8 +258,9 @@ class Playwright_MainTest {
 
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -297,8 +302,9 @@ class Playwright_MainTest {
 
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -340,7 +346,9 @@ class Playwright_MainTest {
 
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -382,7 +390,9 @@ class Playwright_MainTest {
 
             long endTime = System.currentTimeMillis();
             long elapsedTime = endTime - startTime;
-            logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            if (testInfo.getTestMethod().isPresent()) {
+                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
