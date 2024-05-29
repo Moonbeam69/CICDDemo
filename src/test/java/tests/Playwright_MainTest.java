@@ -16,35 +16,56 @@ import static io.qameta.allure.SeverityLevel.*;
 @ExtendWith(DisplayNameReporter.class)
 class Playwright_MainTest {
 
-    static BrowserType browserType;
+    private static BrowserType browserType;
+    private static Playwright playwright;
+    private Browser browser;
+    private Page page;
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger(Playwright_MainTest.class);
     
     @BeforeAll
     static void setup() {
-        String browser = System.getProperty("browser");
+        String browserName = System.getProperty("browser");
         String environment = System.getProperty("environment");
 
-        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
 
-            logger.info("Executing agaist  " + browser);
-            logger.info("Executing in  " + environment);
+        playwright = Playwright.create();
 
-            switch (browser) {
-                case "chrome":
-                    browserType = playwright.chromium();
-                    break;
-                case "firefox":
-                    browserType = playwright.firefox();
-                    break;
-                case "safari":
-                    browserType = playwright.webkit();
-                    break;
-                default:
-                    logger.info("No browser configured with " + browser);
+        logger.info("Executing agaist  " + browserName);
+        logger.info("Executing in  " + environment);
 
-                    // https://github.com/users/Moonbeam69/projects/1/views/1?filterQuery=sprint%3A%40current&pane=issue&itemId=62728371
-            }
+        switch (browserName.toLowerCase()) {
+            case "chrome":
+                browserType = playwright.chromium();
+                break;
+            case "firefox":
+                browserType = playwright.firefox();
+                break;
+            case "safari":
+                browserType = playwright.webkit();
+                break;
+            default:
+                browserType = playwright.chromium();
+                logger.info("No browser configured with " + browserName + "...using Chrome");
+
         }
+
+    }
+    @BeforeEach
+    public void setUp() {
+        //browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(false));
+        browser = browserType.launch();
+        page = browser.newPage();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        page.close();
+        browser.close();
+    }
+
+    @AfterAll
+    public static void tearDownClass() {
+        playwright.close();
     }
 
     @Test
@@ -58,38 +79,19 @@ class Playwright_MainTest {
     void tc1_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
-//        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
-//            BrowserType browserType = playwright.firefox();
+        page.navigate("https://playwright.dev");
 
-            try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-                BrowserContext context = browser.newContext();
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-                Page page = context.newPage();
-                page.navigate("https://playwright.dev");
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-                //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-                //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
 
-//            for (Rule r : accessibilityScanResults.getViolations()) {
-//                logger.info("===");
-//                logger.info(r.toString());
-//            }
-
-                // Expect a title "to contain" a substring.
-                assertThat(page).hasTitle(Pattern.compile("Playwright"));
-                logger.info(page.title());
-
-                page.locator("//html/body/div/div[2]/header/div/div/a").click();
-                assertThat(page).hasTitle("Installation | Playwright");
-            }
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     @Test
@@ -103,38 +105,19 @@ class Playwright_MainTest {
 
         long startTime = System.currentTimeMillis();
 
-//        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
-//            BrowserType browserType = playwright.chromium();
+        page.navigate("https://playwright.dev");
 
-            try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-                BrowserContext context = browser.newContext();
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-                Page page = context.newPage();
-                page.navigate("https://playwright.dev");
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-                //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-                //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
 
-//            for (Rule r : accessibilityScanResults.getViolations()) {
-//                logger.info("===");
-//                logger.info(r.toString());
-//            }
-
-                // Expect a title "to contain" a substring.
-                assertThat(page).hasTitle(Pattern.compile("Playwright"));
-                logger.info(page.title());
-
-                page.locator("//html/body/div/div[2]/header/div/div/a").click();
-                assertThat(page).hasTitle("Installation | Playwright");
-            }
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     @Test
@@ -147,38 +130,19 @@ class Playwright_MainTest {
     void tc3_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
-//        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
-//            BrowserType browserType = playwright.chromium();
+        page.navigate("https://playwright.dev");
 
-            try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-                BrowserContext context = browser.newContext();
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-                Page page = context.newPage();
-                page.navigate("https://playwright.dev");
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-                //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-                //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
 
-//            for (Rule r : accessibilityScanResults.getViolations()) {
-//                logger.info("===");
-//                logger.info(r.toString());
-//            }
-
-                // Expect a title "to contain" a substring.
-                assertThat(page).hasTitle(Pattern.compile("Playwright"));
-                logger.info(page.title());
-
-                page.locator("//html/body/div/div[2]/header/div/div/a").click();
-                assertThat(page).hasTitle("Installation | Playwright");
-            }
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     @Test
@@ -192,36 +156,18 @@ class Playwright_MainTest {
 
         long startTime = System.currentTimeMillis();
 
-        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-            BrowserContext context = browser.newContext();
+        page.navigate("https://playwright.dev");
 
-            Page page = context.newPage();
-            page.navigate("https://playwright.dev");
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-//            for (Rule r : accessibilityScanResults.getViolations()) {
-//                logger.info("===");
-//                logger.info(r.toString());
-//            }
-
-            // Expect a title "to contain" a substring.
-            assertThat(page).hasTitle(Pattern.compile("Playwright"));
-            logger.info(page.title());
-
-            page.locator("//html/body/div/div[2]/header/div/div/a").click();
-            assertThat(page).hasTitle("Installation | Playwright");
-
-
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
 
     }
 
@@ -235,37 +181,18 @@ class Playwright_MainTest {
 
         long startTime = System.currentTimeMillis();
 
-        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-            BrowserContext context = browser.newContext();
+        page.navigate("https://playwright.dev");
 
-            Page page = context.newPage();
-            page.navigate("https://playwright.dev");
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-//            for (Rule r : accessibilityScanResults.getViolations()) {
-//                logger.info("===");
-//                logger.info(r.toString());
-//            }
-
-            // Expect a title "to contain" a substring.
-            assertThat(page).hasTitle(Pattern.compile("Playwright"));
-            logger.info(page.title());
-
-            page.locator("//html/body/div/div[2]/header/div/div/a").click();
-            assertThat(page).hasTitle("Installation | Playwright");
-
-
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
     }
 
     @Test
@@ -276,39 +203,20 @@ class Playwright_MainTest {
     @Link(name = "Website", url = "https://dev.example.com/")
     @TmsLink("TMS-456")
     void tc6_Navigation(TestInfo testInfo) {
-
         long startTime = System.currentTimeMillis();
 
-        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-            BrowserContext context = browser.newContext();
+        page.navigate("https://playwright.dev");
 
-            Page page = context.newPage();
-            page.navigate("https://playwright.dev");
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-//            for (Rule r : accessibilityScanResults.getViolations()) {
-//                logger.info("===");
-//                logger.info(r.toString());
-//            }
-
-            // Expect a title "to contain" a substring.
-            assertThat(page).hasTitle(Pattern.compile("Playwright"));
-            logger.info(page.title());
-
-            page.locator("//html/body/div/div[2]/header/div/div/a").click();
-            assertThat(page).hasTitle("Installation | Playwright");
-
-
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
 
     }
 
@@ -320,41 +228,20 @@ class Playwright_MainTest {
     @Link(name = "Website", url = "https://dev.example.com/")
     @TmsLink("TMS-460")
     void tc7_Navigation(TestInfo testInfo) {
-
         long startTime = System.currentTimeMillis();
 
-        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-            BrowserContext context = browser.newContext();
+        page.navigate("https://playwright.dev");
 
-            Page page = context.newPage();
-            page.navigate("https://playwright.dev");
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-            //AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-            //assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-//            for (Rule r : accessibilityScanResults.getViolations()) {
-//                logger.info("===");
-//                logger.info(r.toString());
-//            }
-
-            // Expect a title "to contain" a substring.
-            assertThat(page).hasTitle(Pattern.compile("Playwright"));
-            logger.info(page.title());
-
-            page.locator("//html/body/div/div[2]/header/div/div/a").click();
-            assertThat(page).hasTitle("Installation | Playwright");
-
-
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
     }
 
     @Test
@@ -365,39 +252,26 @@ class Playwright_MainTest {
     @Link(name = "Website", url = "https://dev.example.com/")
     @TmsLink("TMS-461")
     void tc8_Navigation(TestInfo testInfo) {
-
         long startTime = System.currentTimeMillis();
 
-        try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
-            BrowserContext context = browser.newContext();
+        page.navigate("https://playwright.dev");
 
-            Page page = context.newPage();
-            page.navigate("https://playwright.dev");
+        // Expect a title "to contain" a substring.
+        assertThat(page).hasTitle(Pattern.compile("Playwright"));
+        logger.info(page.title());
 
-//            try {
-//                AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-//                assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
-//            } catch (Exception e) {
-//                //ignore failure as is expected
-//            }
+        //            try {
+        //                AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
+        //                assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+        //            } catch (Exception e) {
+        //                //ignore failure as is expected
+        //            }
 
-            // Expect a title "to contain" a substring.
-            assertThat(page).hasTitle(Pattern.compile("Playwright"));
-            logger.info(page.title());
+        page.locator("//html/body/div/div[2]/header/div/div/a").click();
+        assertThat(page).hasTitle("Installation | Playwright");
 
-            page.locator("//html/body/div/div[2]/header/div/div/a").click();
-            assertThat(page).hasTitle("Installation | Playwright");
-
-
-            long endTime = System.currentTimeMillis();
-            long elapsedTime = endTime - startTime;
-            if (testInfo.getTestMethod().isPresent()) {
-                logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
     }
 }

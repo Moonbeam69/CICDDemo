@@ -210,14 +210,11 @@
                             <excludes>
                                 <exclude>${Browserstack_test_case}</exclude>
                             </excludes>
-                            <properties>
-                                <configurationParameters>
-                                    junit.jupiter.execution.parallel.enabled = true
-                                    junit.jupiter.execution.parallel.mode.default = concurrent
-                                    junit.jupiter.execution.parallel.config.strategy=fixed
-                                    junit.jupiter.execution.parallel.config.fixed.parallelism=${parallel.count}
-                                </configurationParameters>
-                            </properties>
+                            <parallel>classes</parallel>
+                            <threadCount>4</threadCount>
+                            <reuseForks>true</reuseForks>
+                            <forkCount>2</forkCount>
+                            <useUnlimitedThreads>false</useUnlimitedThreads>
                             <testFailureIgnore>false</testFailureIgnore>
                         </configuration>
                     </plugin>
@@ -246,14 +243,11 @@
                                 <config>browserstack.conf.json</config>
                                 <local>false</local>
                             </systemPropertyVariables>
-                            <properties>
-                                <configurationParameters>
-                                    junit.jupiter.execution.parallel.enabled = true
-                                    junit.jupiter.execution.parallel.mode.default = concurrent
-                                    junit.jupiter.execution.parallel.config.strategy=fixed
-                                    junit.jupiter.execution.parallel.config.fixed.parallelism=${parallel.count}
-                                </configurationParameters>
-                            </properties>
+                            <parallel>classes</parallel>
+                            <threadCount>4</threadCount>
+                            <reuseForks>true</reuseForks>
+                            <forkCount>2</forkCount>
+                            <useUnlimitedThreads>false</useUnlimitedThreads>
                             <testFailureIgnore>false</testFailureIgnore>
                         </configuration>
                     </plugin>
