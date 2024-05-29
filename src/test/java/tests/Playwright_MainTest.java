@@ -58,8 +58,8 @@ class Playwright_MainTest {
     void tc1_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
-        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
-            BrowserType browserType = playwright.firefox();
+//        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
+//            BrowserType browserType = playwright.firefox();
 
             try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
                 BrowserContext context = browser.newContext();
@@ -87,9 +87,9 @@ class Playwright_MainTest {
             if (testInfo.getTestMethod().isPresent()) {
                 logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Test
@@ -103,8 +103,8 @@ class Playwright_MainTest {
 
         long startTime = System.currentTimeMillis();
 
-        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
-            BrowserType browserType = playwright.chromium();
+//        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
+//            BrowserType browserType = playwright.chromium();
 
             try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
                 BrowserContext context = browser.newContext();
@@ -132,9 +132,9 @@ class Playwright_MainTest {
             if (testInfo.getTestMethod().isPresent()) {
                 logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Test
@@ -147,8 +147,8 @@ class Playwright_MainTest {
     void tc3_Navigation(TestInfo testInfo) {
         long startTime = System.currentTimeMillis();
 
-        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
-            BrowserType browserType = playwright.chromium();
+//        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
+//            BrowserType browserType = playwright.chromium();
 
             try(Browser browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true))) {
                 BrowserContext context = browser.newContext();
@@ -176,9 +176,9 @@ class Playwright_MainTest {
             if (testInfo.getTestMethod().isPresent()) {
                 logger.info(testInfo.getTestMethod().get().getName() + " elapsed time in milliseconds: " + elapsedTime);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Test
