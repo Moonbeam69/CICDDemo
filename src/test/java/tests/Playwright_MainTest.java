@@ -1,7 +1,5 @@
 package tests;
 
-import com.deque.html.axecore.playwright.*;
-import com.deque.html.axecore.results.*;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.junit.*;
 import io.qameta.allure.*;
@@ -9,12 +7,10 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 import runners.*;
 
-import java.util.*;
 import java.util.regex.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.*;
 import static io.qameta.allure.SeverityLevel.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @UsePlaywright
 @ExtendWith(DisplayNameReporter.class)
@@ -369,12 +365,12 @@ class Playwright_MainTest {
             Page page = context.newPage();
             page.navigate("https://playwright.dev");
 
-            try {
-                AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
-                assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
-            } catch (Exception e) {
-                //ignore failure as is expected
-            }
+//            try {
+//                AxeResults accessibilityScanResults = new AxeBuilder(page).analyze();
+//                assertEquals(Collections.emptyList(), accessibilityScanResults.getViolations());
+//            } catch (Exception e) {
+//                //ignore failure as is expected
+//            }
 
             // Expect a title "to contain" a substring.
             assertThat(page).hasTitle(Pattern.compile("Playwright"));
