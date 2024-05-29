@@ -24,25 +24,26 @@ class Playwright_MainTest {
         String browser = System.getProperty("browser");
         String environment = System.getProperty("environment");
 
-        com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create();
+        try (com.microsoft.playwright.Playwright playwright = com.microsoft.playwright.Playwright.create()) {
 
-        logger.info("Executing agaist  " + browser);
-        logger.info("Executing in  " + environment);
+            logger.info("Executing agaist  " + browser);
+            logger.info("Executing in  " + environment);
 
-        switch (browser) {
-            case "chrome":
-                browserType = playwright.chromium();
-                break;
-            case "firefox":
-                browserType = playwright.firefox();
-                break;
-            case "safari":
-                browserType = playwright.webkit();
-                break;
-            default:
-                logger.info("No browser configured with " + browser);
+            switch (browser) {
+                case "chrome":
+                    browserType = playwright.chromium();
+                    break;
+                case "firefox":
+                    browserType = playwright.firefox();
+                    break;
+                case "safari":
+                    browserType = playwright.webkit();
+                    break;
+                default:
+                    logger.info("No browser configured with " + browser);
 
-                // https://github.com/users/Moonbeam69/projects/1/views/1?filterQuery=sprint%3A%40current&pane=issue&itemId=62728371
+                    // https://github.com/users/Moonbeam69/projects/1/views/1?filterQuery=sprint%3A%40current&pane=issue&itemId=62728371
+            }
         }
     }
 
