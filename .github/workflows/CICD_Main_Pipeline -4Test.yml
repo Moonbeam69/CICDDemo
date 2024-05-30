@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        browser:     [ chrome, firefox ]
+        browser:     [ chrome, firefox, safari ]
         profile:     [ Localtests ] # Browserstack
         environment: [ DevVer ]
         os:          [ Windows ]
