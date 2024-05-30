@@ -14,6 +14,8 @@ public class DisplayNameReporter implements TestWatcher {
     logDisplayName(context);
   }
 
+
+
   private void logDisplayName(ExtensionContext context) {
     String displayName = context.getDisplayName();
     System.out.println("DisplayName: " + displayName); // This will appear in the Surefire console output
