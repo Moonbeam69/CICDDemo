@@ -30,8 +30,8 @@ class Playwright_MainTest {
 
         playwright = Playwright.create();
 
-        logger.info("Executing agaist  " + browserName);
-        logger.info("Executing in  " + environment);
+        logger.info("Browser: " + browserName);
+        logger.info("Environment: " + environment);
 
         switch (browserName.toLowerCase()) {
             case "chrome":
@@ -52,8 +52,9 @@ class Playwright_MainTest {
     }
     @BeforeEach
     public void setUp() {
-        //browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(false));
-        browser = browserType.launch();
+        browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(false));
+        //browser = browserType.launch();
+        logger.info("Browser version: " + browser.version());
         page = browser.newPage();
     }
 
