@@ -24,15 +24,15 @@ This project demonstrate the basics principles of a CICD pipeline development. I
 1. After a Push or Pull Request into master, CICD_Main_Pipeline.yml is executed. This workflow takes a build through three test levels to a fictional production environment
 3. CICD_Main_Pipeline.yml performs the following steps:
    - Setup: JDK 19 (OpenJDK temurin|zulu distribution) is deployed to the runner (self-hosted). THe latest version of the this script:
-     - Checks if the correct version of JDK is already installed and it is, proceeds to build
+     - Checks if the correct version of JDK is already installed and if it is, proceeds to build
      - If not, the cache is checked and if present downloaded from there
-     - If not, then is retrived from a prebuilt image provided by Github.
+     - If not, then is retrived from a prebuilt image provided by GitHub.
      - Note I am not convinced this logic is required as the JDK will not change much over the lifespan of a single project but it is included as POC
-   - Build: Maven builds the project and runs tests. Moven must be installed on all Runners beforehand. 
+   - Build: Maven builds the project and runs tests. Maven must be installed on all Runners beforehand. 
    - Tests are Junit tests with and without Playwright running on local or Browserstack browsers 
    - Docker: Docker creates a new Docker image from the project Dockerfile, copies and executes the mainClass from project Jar (no test execution)
    - My workflow yml uses various strategies to test on OS, browsers and platforms. OS and browsers are configured via the strategy syntax and platfoms via Maven profiles 
-   - Test Reporting. By default, Junit provides limited test reporting capability. Certainly, for client projects in regulated markets more transparency is warrented. The additiona of
+   - Test Reporting. By default, Junit provides limited test reporting capability. Certainly, for client projects in regulated markets more transparency is necessary. The addition of
 customer reporting classes (DisplayNameReporter.class) or reporting frameworks, e.g. Allure, improve this greatly.
 
 #Note:
