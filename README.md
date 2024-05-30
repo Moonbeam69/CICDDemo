@@ -12,7 +12,7 @@ This project demonstrate the basics principles of a CICD pipeline development. I
 - IDE Intellij 2024.1 CE with Codiumate AI plugin 
 - OpenJDK 17 | 19, "temurin" or "zulu" on self-hosted runners
 - Github Free account
-- Browserstack trial account (supports only Windows Chrome)
+- Browserstack trial account (supports Windows Chrome)
 - Playwright 1.42
 - Junit5
 - Allure 2.13 & custom reporting classes
