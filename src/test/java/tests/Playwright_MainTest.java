@@ -52,7 +52,7 @@ class Playwright_MainTest {
     }
     @BeforeEach
     public void setUp() {
-        browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(false));
+        browser = browserType.launch(new BrowserType.LaunchOptions().setHeadless(true));
         //browser = browserType.launch();
         logger.info("Browser version: " + browser.version());
         page = browser.newPage();
