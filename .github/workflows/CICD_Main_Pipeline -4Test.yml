@@ -119,5 +119,5 @@ jobs:
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
+          name: allure-report ${{ matrix.os }} - ${{ matrix.browser }} - ${{ github.run_id }}
           path: target/site/allure-maven-plugin
