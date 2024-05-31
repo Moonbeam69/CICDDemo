@@ -26,7 +26,7 @@ This project demonstrates best-practices of a CICD pipeline development. I've us
    - Setup: JDK 19 (OpenJDK temurin|zulu distribution) is deployed to the runner (self-hosted). THe latest version of the this script:
      - Checks if the correct version of JDK is already installed and if it is, proceeds to build
      - If not, the cache is checked and if present downloaded from there
-     - If not, then is retrived from a prebuilt image provided by GitHub.
+     - If not, the JDK is retrieved from a prebuilt image provided by GitHub.
      - Note I am not convinced this logic is required as the JDK will not change much over the lifespan of a single project but it is included as POC
    - Build: Maven builds the project and runs tests. Maven must be installed on all Runners beforehand. 
    - Tests are Junit tests with and without Playwright running on local or Browserstack browsers 
