@@ -5,9 +5,9 @@ env:
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "Pipeline_Test_Branch" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "Pipeline_Test_Branch" ]
   workflow_dispatch:
 
 jobs:
