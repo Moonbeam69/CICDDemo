@@ -3,7 +3,7 @@
 [![CICD workflow - 4Test](https://github.com/Moonbeam69/CICDDemo/actions/workflows/CICD_Main_Pipeline%20-4Test.yml/badge.svg)](https://github.com/Moonbeam69/CICDDemo/actions/workflows/CICD_Main_Pipeline%20-4Test.yml)
 
 ## Description
-
+ 
 This project demonstrate the basics principles of a CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integration, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
 
 ### Environment
