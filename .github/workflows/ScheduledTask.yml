@@ -11,17 +11,14 @@ name: Scheduled task
 
 on:
   schedule:
-    - cron: '0/30 * * * *'
+    # Runs at midnight GMT from Sunday to Thursday
+    - cron: '0 0 * * 0-4'
   workflow_dispatch:
 
 jobs:
   echo:
-    runs-on: [self-hosted, OPENSUSE]
+    runs-on: [windows-latest]
     steps:
-      - name: Echo works
+      - name: Nightly build
         run:
-          echo "Hello world"
-
-# This doesn't work
-#      - name: Maven Dependency Tree Dependency Submission
-#        uses: advanced-security/maven-dependency-submission-action@v4.0.3
+          echo "Nightly build successful"
