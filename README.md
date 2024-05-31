@@ -4,7 +4,7 @@
 
 ## Description
  
-This project demonstrate the basics principles of a CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integration, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
+This project demonstrates best-practices of a CICD pipeline development. I've used Github Actions, (self-hosted) Runners, Browserstack integration, Junit unit test cases, Playwright browser test cases and the creation of a Docker image.
 
 ### Environment
 - Local LAN comprising:
